@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:motion_toast/resources/arrays.dart';
 
 class Utils{
 
@@ -96,6 +98,37 @@ class Utils{
       ..hideCurrentSnackBar()
       ..showSnackBar(snackBar);
   }
+
+  static void showMotionToast(
+    BuildContext context, {
+    required String title,
+    required String description,
+    IconData icon = Icons.info,
+    Color? primaryColor,
+    Color? secondaryColor,
+    Alignment toastAlignment = Alignment.topCenter,
+    AnimationType animationType = AnimationType.slideInFromRight,
+    double? height,
+    double? width,
+    Duration duration = const Duration(seconds: 3),
+  }) {
+    MotionToast(
+      icon: icon,
+      primaryColor: primaryColor ?? const Color.fromARGB(255, 2, 77, 117),
+      secondaryColor: secondaryColor ??Color.fromARGB(255, 0, 255, 34),
+      title: Text(title,style: const TextStyle(color: Color.fromARGB(255, 0, 255, 34), fontWeight: FontWeight.bold)),
+      description: Text(description,style: const TextStyle(color: Colors.white)),
+      toastAlignment: toastAlignment,
+      animationType: animationType,
+      height: height ?? 80,
+      width: width ?? 300,
+      displayBorder: false,
+      animationCurve: Curves.easeOutBack,
+      animationDuration: const Duration(milliseconds: 1000),
+      toastDuration: duration,
+    ).show(context);
+  }
+
 }
 
 extension StringExtension on String {

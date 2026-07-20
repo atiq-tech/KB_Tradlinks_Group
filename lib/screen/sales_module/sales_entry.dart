@@ -12,6 +12,7 @@ import 'package:kbtradlink/provider/category_provider.dart';
 import 'package:kbtradlink/provider/customer_provider.dart';
 import 'package:kbtradlink/provider/employee_provider.dart';
 import 'package:kbtradlink/provider/category_wise_product_provider.dart';
+import 'package:kbtradlink/utils/all_textstyle.dart';
 import 'package:kbtradlink/utils/const_page.dart';
 import 'package:kbtradlink/custom/custom_appbar.dart';
 import 'package:kbtradlink/screen/sales_module/model/branch_model.dart';
@@ -32,6 +33,12 @@ class SalesEntryPage extends StatefulWidget {
 }
 
 class _SalesEntryPageState extends State<SalesEntryPage> {
+  Color getColor(Set<MaterialState> states) {
+    return Colors.white;
+  }
+  Color getColors(Set<MaterialState> states) {
+    return Colors.blue.shade100;
+  }
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _paidController = TextEditingController();
   final TextEditingController _discountPercentController = TextEditingController();
@@ -82,7 +89,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
   String? ctotal;
   String? cpurchaseRate;
 
-  double h1TextSize = 16.0;
+  double h1TextSize = 14.0;
   double h2TextSize = 12.0;
   double Total = 0.0;
 
@@ -90,7 +97,6 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
   bool isEnabled = false;
 
   late final Box box;
-
   bool isSellBtnClk = false;
   // bool isCustomerTypeChange = false;
 
@@ -220,85 +226,56 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                     child: Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            const Expanded(flex: 3,child: Text("Date to",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 1,
-                              child: Row(
-                                children: [
-                                  const Expanded(
-                                    child: Text(
-                                      "Date to      :",
-                                      style: TextStyle(
-                                          color: Color.fromARGB(255, 126, 125, 125)),
+                              flex: 11,
+                              child: GestureDetector(
+                                onTap: () {
+                                  _selectedDate();
+                                },
+                                child: Container(
+                                  margin:
+                                  const EdgeInsets.only(top: 5,),
+                                  height: 28,
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.only(top: 5, bottom: 5, left: 5, right: 5),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: const Color.fromARGB(255, 7, 125, 180),
+                                      width: 1.0,
                                     ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  Expanded(
-                                    flex: 3,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        _selectedDate();
-                                      },
-                                      child: Container(
-                                        margin:
-                                        const EdgeInsets.only(top: 5,),
-                                        height: 28,
-                                        width: double.infinity,
-                                        padding: const EdgeInsets.only(
-                                            top: 5, bottom: 5, left: 5, right: 5),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(
-                                            color: const Color.fromARGB(255, 7, 125, 180),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius: BorderRadius.circular(10.0),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              firstPickedDate == null
-                                                  ? Utils.formatFrontEndDate(DateTime.now())
-                                                  : firstPickedDate!,
-                                              style: const TextStyle(fontSize: 13.0),
-                                            ),
-                                            const Icon(Icons.calendar_month,size: 18,)
-                                          ],
-                                        ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(firstPickedDate == null ? Utils.formatFrontEndDate(DateTime.now()) : firstPickedDate!,
+                                        style: const TextStyle(fontSize: 13.0),
                                       ),
-                                    ),
+                                      const Icon(Icons.calendar_month,size: 18,)
+                                    ],
                                   ),
-
-                                ],
+                                ),
                               ),
-                            ),
+                            ),                    
                           ],
                         ),
-
-                        // Invoice no drop down
                         Row(
                           children: [
-                            const Expanded(
-                              flex:1,
-                              child:Text(
-                                "Sales By    :",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 126, 125, 125)),
-                              ),),
-                            const SizedBox(width: 5,),
+                            const Expanded(flex: 3,child: Text("Sales By",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex:3,
+                              flex:11,
                               child: Container(
                                 margin: const EdgeInsets.only(top: 5, bottom: 5),
                                 height: 30,
                                 padding: const EdgeInsets.only(left: 5, right: 5),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  border: Border.all(
-                                    color: const Color.fromARGB(255, 7, 125, 180),
-                                    width: 1.0,
-                                  ),
+                                  border: Border.all(color: const Color.fromARGB(255, 7, 125, 180),width: 1.0),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 child: TypeAheadFormField(
@@ -309,9 +286,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                         employeeSlNo = '';
                                       }
                                     },
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    ),
+                                    style: const TextStyle(fontSize: 12),
                                     controller: empluyeeNameController,
                                     decoration: InputDecoration(
                                       isDense: true,
@@ -328,16 +303,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                     ),
                                   ),
                                   suggestionsCallback: (pattern) {
-                                    return allEmployee
-                                        .where((element) => element.employeeName
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(pattern
-                                        .toString()
-                                        .toLowerCase()))
-                                        .take(allEmployee.length)
-                                        .toList();
-                                    // return placesSearchResult.where((element) => element.name.toLowerCase().contains(pattern.toString().toLowerCase())).take(10).toList();
+                                    return allEmployee.where((element) => element.employeeName.toString().toLowerCase().contains(pattern.toString().toLowerCase())).take(allEmployee.length).toList();
                                   },
                                   itemBuilder: (context, suggestion) {
                                     return SizedBox(
@@ -350,12 +316,10 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                       ),
                                     );
                                   },
-                                  transitionBuilder:
-                                      (context, suggestionsBox, controller) {
+                                  transitionBuilder: (context, suggestionsBox, controller) {
                                     return suggestionsBox;
                                   },
-                                  onSuggestionSelected:
-                                      (EmployeeModel suggestion) {
+                                  onSuggestionSelected:(EmployeeModel suggestion) {
                                     empluyeeNameController.text = suggestion.employeeName;
                                     setState(() {
                                       employeeSlNo = suggestion.employeeSlNo.toString();
@@ -370,11 +334,6 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                       ],
                     ),
                   ),
-                  // SizedBox(height: 10),
-                  ////
-                  ///
-                  ///my practice
-                  ///
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.only(left: 4.0, right: 4.0,bottom: 4.0),
@@ -399,13 +358,15 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            const Text("Sales Type  :     ",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125))),
                             Row(
                               children: [
                                 Transform.scale(
-                                  scale: 1.005,
+                                  scale: 0.8,
                                   child: Radio(
-                                      fillColor: MaterialStateColor.resolveWith(
-                                            (states) =>
+                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                      visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                                      fillColor: MaterialStateColor.resolveWith((states) =>
                                         const Color.fromARGB(255, 5, 114, 165),
                                       ),
                                       value: "retail",
@@ -420,14 +381,16 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                         });
                                       }),
                                 ),
-                                const Text("Retail"),
+                                const Text("Retail",style: TextStyle(fontSize: 13)),
                               ],
                             ),
                             Row(
                               children: [
                                 Transform.scale(
-                                  scale: 1.005,
+                                  scale: 0.8,
                                   child: Radio(
+                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                      visualDensity:const VisualDensity(horizontal: -4, vertical: -4),
                                       fillColor: MaterialStateColor.resolveWith((states) =>
                                         const Color.fromARGB(255, 5, 114, 165),
                                       ),
@@ -443,14 +406,16 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                         });
                                       }),
                                 ),
-                                const Text("Wholesale"),
+                                const Text("Wholesale",style: TextStyle(fontSize: 13)),
                               ],
                             ),
                             Row(
                               children: [
                                 Transform.scale(
-                                  scale: 1.005,
+                                  scale: 0.8,
                                   child: Radio(
+                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                      visualDensity:const VisualDensity(horizontal: -4, vertical: -4),
                                       fillColor: MaterialStateColor.resolveWith(
                                             (states) =>
                                         const Color.fromARGB(255, 5, 114, 165),
@@ -467,22 +432,17 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                         });
                                       }),
                                 ),
-                                const Text("Unpaid"),
+                                const Text("Unpaid",style: TextStyle(fontSize: 13)),
                               ],
                             ),
                           ],
                         ), // radio button
                         Row(
                           children: [
-                            const SizedBox(width: 5),
-                            const Text(
-                              "Customer :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(width: 16),
+                            const Expanded(flex: 3,child: Text("Customer",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 5,
+                              flex: 11,
                               child: Container(
                                 margin: const EdgeInsets.only(bottom: 4),
                                 height: 30,
@@ -634,21 +594,15 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                           visible: isVisible,
                           child: Row(
                             children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 28),
-                                child: Text(
-                                  "Name :",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 126, 125, 125)),
-                                ),
-                              ),
-                              const SizedBox(width: 15),
+                              const Expanded(flex: 3,child: Text("Name",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                              const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                               Expanded(
-                                flex: 3,
+                                flex: 11,
                                 child: Container(
                                   height: 28.0,
                                   margin: const EdgeInsets.only(bottom: 4),
                                   child: TextFormField(
+                                    style: const TextStyle(fontSize: 13),
                                     controller: _nameController,
                                     validator: (value) {
                                       if(value != null || value != ''){
@@ -658,19 +612,16 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                     },
                                     keyboardType: TextInputType.text,
                                     decoration: InputDecoration(
+                                      contentPadding: const EdgeInsets.only(left: 6, bottom: 6),
                                       filled: true,
                                       fillColor: Colors.white,
                                       border: InputBorder.none,
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Color.fromARGB(255, 7, 125, 180),
-                                        ),
+                                        borderSide: const BorderSide(color: Color.fromARGB(255, 7, 125, 180)),
                                         borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Color.fromARGB(255, 7, 125, 180),
-                                        ),
+                                        borderSide: const BorderSide(color: Color.fromARGB(255, 7, 125, 180)),
                                         borderRadius: BorderRadius.circular(10.0),
                                       ),
                                     ),
@@ -682,17 +633,10 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                         ),
                         Row(
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.only(left: 22),
-                              child: Text(
-                                "Mobile :",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 126, 125, 125)),
-                              ),
-                            ),
-                            const SizedBox(width: 15),
+                            const Expanded(flex: 3,child: Text("Mobile",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 3,
+                              flex: 11,
                               child: Container(
                                 height: 28.0,
                                 margin: const EdgeInsets.only(bottom: 4),
@@ -709,11 +653,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                     return null;
                                   },
                                   decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.only(bottom:18,left: 5),
-                                    // filled: true,
-                                    // fillColor: isEnabled == true
-                                    //     ? Colors.white
-                                    //     : Colors.grey[200],
+                                    contentPadding: const EdgeInsets.only(left: 6, bottom: 6),
                                     border: InputBorder.none,
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -737,21 +677,12 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
 
                         Row(
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.only(left: 12),
-                              child: Text(
-                                "Address :",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 126, 125, 125)),
-                              ),
-                            ),
-
-                            const SizedBox(width: 16,),
+                            const Expanded(flex: 3,child: Text("Address",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 3,
+                              flex: 11,
                               child: Container(
                                 height: 30,
-                                //margin: const EdgeInsets.only(bottom: 5),
                                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0),color: Colors.grey[200],),
                                 child: TextFormField(
                                   style: const TextStyle(fontSize: 13),
@@ -766,11 +697,6 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                   enabled: isEnabled,
                                   decoration: InputDecoration(
                                     contentPadding: const EdgeInsets.only(bottom:5,left: 5),
-                                    // filled: true,
-                                    // fillColor: isEnabled == true
-                                    //     ? Colors.white
-                                    //     : Colors.grey[200],
-
                                     border: InputBorder.none,
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -795,19 +721,13 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                       ],
                     ),
                   ),
-                  // SizedBox(height: 10),
                   Container(
-                    height: 220,
                     width: double.infinity,
-                    margin: const EdgeInsets.only(
-                      top: 10.0,
-                    ),
+                    margin: const EdgeInsets.only(top: 10.0),
                     padding:
                     const EdgeInsets.only(top: 4.0, left: 4.0, right: 4.0),
                     decoration: BoxDecoration(
                       color: Color(0xffD2D2FF),
-                      //color: Colors.yellow.shade50,
-                      //color: Colors.blue[100],
                       borderRadius: BorderRadius.circular(15.0),
                       border: Border.all(
                           color: const Color.fromARGB(255, 7, 125, 180),
@@ -826,14 +746,10 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                       children: [
                         Row(
                           children: [
-                            const Text(
-                              "Warehouse :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(width: 15,),
+                            const Expanded(flex: 3,child: Text("Warehouse",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 3,
+                              flex: 11,
                               child: Container(
                                 height: 30,
                                 padding: const EdgeInsets.only(left: 5, right: 5),
@@ -898,19 +814,13 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                     )
                                     );
                                   },
-                                  transitionBuilder:
-                                      (context, suggestionsBox, controller) {
+                                  transitionBuilder:(context, suggestionsBox, controller) {
                                     return suggestionsBox;
                                   },
-                                  onSuggestionSelected:
-                                      (BranchModel suggestion) {
+                                  onSuggestionSelected:(BranchModel suggestion) {
                                     branchController.text = "${suggestion.brunchName}";
                                     setState(() {
-                                      // _selectedCategory = suggestion.brunchId.toString();
                                       branchId = suggestion.brunchId;
-                                      // Provider.of<AllProductProvider>(context,
-                                      //     listen: false)
-                                      //     .getAllProduct(isService: "false",categoryId: branchId);
                                     });
                                   },
                                   onSaved: (value) {},
@@ -922,15 +832,10 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
 
                         Row(
                           children: [
-                            const SizedBox(width: 10,),
-                            const Text(
-                              "Category :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(width: 15,),
+                            const Expanded(flex: 3,child: Text("Category",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 3,
+                              flex: 11,
                               child: Container(
                                 height: 30,
                                 padding: const EdgeInsets.only(left: 5, right: 5),
@@ -1018,15 +923,10 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                         // category
                         Row(
                           children: [
-                            const SizedBox(width: 17,),
-                            const Text(
-                              "Product :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(width: 15,),
+                            const Expanded(flex: 3,child: Text("Product",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 3,
+                              flex: 11,
                               child: Container(
                                   height: 30,
                                   padding: const EdgeInsets.only(left: 5, right: 5),
@@ -1081,7 +981,6 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                             .toLowerCase()))
                                             .take(productList.length)
                                             .toList();
-                                        // return placesSearchResult.where((element) => element.name.toLowerCase().contains(pattern.toString().toLowerCase())).take(10).toList();
                                       },
                                       itemBuilder: (context, suggestion) {
                                         return SizedBox(
@@ -1096,58 +995,27 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                           ),
                                         );
                                       },
-                                      transitionBuilder:
-                                          (context, suggestionsBox, controller) {
+                                      transitionBuilder:(context, suggestionsBox, controller) {
                                         return suggestionsBox;
                                       },
-                                      onSuggestionSelected:
-                                          (ProductModel suggestion) {
+                                      onSuggestionSelected:(ProductModel suggestion) {
                                         productController.text = suggestion.displayText;
                                         setState(() {
                                           _selectedProduct = suggestion.productSlNo;
-
                                           print("dfhsghdfkhgkh $_selectedProduct");
-
                                           final results = [
-                                            productList.where((m) =>
-                                                m.productSlNo.toString().contains(
-                                                    suggestion.productSlNo.toString())) // or Testing 123
-                                                .toList(),
+                                            productList.where((m) =>m.productSlNo.toString().contains(suggestion.productSlNo.toString())).toList(),
                                           ];
-                                          print("dfhsghdfkhgkh $results");
-
-                                          results.forEach((element) async {
-                                            element.add(element.first);
+                                          results.forEach((element) async {element.add(element.first);
                                             cproductId = element[0].productSlNo;
-                                            print(
-                                                "productSlNo===> ${element[0].productSlNo}");
-                                            ccategoryName =
-                                            element[0].productCategoryName;
-                                            print(
-                                                "productCategoryName===> ${element[0].productCategoryName}");
+                                            ccategoryName = element[0].productCategoryName;
                                             cname = element[0].productName;
-                                            print(
-                                                "productName===> ${element[0].productName}");
-                                            print(
-                                                "productSellingPrice===> ${element[0].productSellingPrice}");
                                             cvat = element[0].vat;
-                                            print("vat===> ${element[0].vat}");
-                                            print(
-                                                "_quantityController ===> ${_quantityController.text}");
-                                            print(
-                                                "_quantityController ===> ${_quantityController.text}");
-                                            cpurchaseRate =
-                                            element[0].productPurchaseRate;
-                                            print(
-                                                "productPurchaseRate===> ${element[0].productPurchaseRate}");
+                                            cpurchaseRate = element[0].productPurchaseRate;
                                             _VatController.text = element[0].vat;
-                                            _salesRateController.text =
-                                            element[0].productSellingPrice;
+                                            _salesRateController.text = element[0].productSellingPrice;
                                             setState(() {
-                                              Total = (double.parse(
-                                                  _quantityController.text) *
-                                                  double.parse(
-                                                      _salesRateController.text));
+                                              Total = (double.parse(_quantityController.text) * double.parse(_salesRateController.text));
                                             });
                                             totalStack(branchId, categoryId, cproductId);
                                           });
@@ -1163,16 +1031,10 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
 
                         Row(
                           children: [
-                            const Text(
-                              "Sales Rate :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
+                            const Expanded(flex: 3,child: Text("Sales Rate",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 1,
+                              flex: 5,
                               child: SizedBox(
                                 height: 28.0,
                                 child: TextField(
@@ -1204,32 +1066,20 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Text(
-                              "Qty",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
+                            const SizedBox(width: 5),
+                            const Text("Qty",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125))),
+                            const SizedBox(width: 5),
                             Expanded(
-                              flex: 1,
+                              flex: 5,
                               child: Container(
                                 height: 28.0,
                                 margin: const EdgeInsets.only(left: 5, right: 0),
                                 child: TextField(
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 126, 125, 125),
-                                      fontSize: 14.0),
+                                  style: const TextStyle(color: Color.fromARGB(255, 126, 125, 125),fontSize: 14.0),
                                   controller: _quantityController,
                                   onChanged: (value) {
                                     setState(() {
-                                      Total = (double.parse(
-                                          _quantityController.text) *
-                                          double.parse(_salesRateController.text));
+                                      Total = (double.parse(_quantityController.text) * double.parse(_salesRateController.text));
                                     });
                                   },
                                   keyboardType: TextInputType.number,
@@ -1258,30 +1108,18 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                             ),
                           ],
                         ), // quantity
-                        const SizedBox(
-                          height: 4,
-                        ),
+                        const SizedBox(height: 4),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            const Text(
-                              "Amount :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
+                            const Expanded(flex: 3,child: Text("Amount",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 7,
+                              flex: 5,
                               child: Container(
                                 margin: const EdgeInsets.only(bottom: 0, right: 5),
                                 height: 28,
-                                padding: const EdgeInsets.only(
-                                    left: 5, right: 5, top: 5, bottom: 0),
+                                padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 0),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   border: Border.all(
@@ -1290,25 +1128,15 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                   ),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                child: Text(
-                                  "$Total",
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 126, 125, 125),
-                                      fontSize: 14.0),
-                                ),
+                                child: Text("$Total",style: const TextStyle(color: Color.fromARGB(255, 126, 125, 125),fontSize: 14.0)),
                               ),
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
+                            const SizedBox(width: 2),
                             const Text(
                               "Available Stock,",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
+                              style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)),
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
+                            const SizedBox(width: 5),
                             Expanded(
                               flex: 2,
                               child: SizedBox(
@@ -1316,8 +1144,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                   availableStock,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 126, 125, 125)),
+                                  style: const TextStyle(color: Color.fromARGB(255, 126, 125, 125)),
                                 ),
                               ),
                             ),
@@ -1396,198 +1223,110 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                     ),
                   ),
 
-                  Column(
-                    children: [
-                      const Divider(thickness: 2),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                              flex: 1,
-                              child: Center(
-                                child: Text(
-                                  "SL.",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: h2TextSize),
-                                ),
-                              )),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                              flex: 4,
-                              child: Text(
-                                "Category",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: h2TextSize,
-                                ),
-                              )),
-                          Expanded(
-                              flex: 6,
-                              child: Text(
-                                "Product Name",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: h2TextSize,
-                                ),
-                              )),
-                          Expanded(
-                              flex: 1,
-                              child: Text(
-                                "Qty",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: h2TextSize,
-                                ),
-                              )),
-                          Expanded(
-                              flex: 3,
-                              child: Text(
-                                "Rate",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: h2TextSize,
-                                ),
-                              )),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              "Amount",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: h2TextSize,
+                  Container(
+                  height: salesCartList.isEmpty ? 40 : salesCartList.length == 1 ? 55 : 35 + (salesCartList.length * 20.0),
+                  width: double.infinity,
+                  padding: const EdgeInsets.only(top: 5.0,bottom: 10.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: DataTable(
+                          headingRowHeight: 20.0,
+                          dataRowHeight: 20.0,
+                          headingRowColor:MaterialStateColor.resolveWith((states) => const Color.fromARGB(255, 7, 125, 180)),
+                          border: TableBorder.all(color: Colors.blueGrey.shade100,width: 1),
+                          columns: [
+                            customDataColumn("SL."),
+                            customDataColumn("Category"),
+                            customDataColumn("Product Name"),
+                            customDataColumn("Qty"),
+                            customDataColumn("Rate"),
+                            customDataColumn("Amount"),
+                            
+                          ],
+                          rows: List.generate(
+                            salesCartList.length,
+                            (int index) => DataRow(
+                              color: MaterialStateProperty.resolveWith(
+                                (states) {
+                                  return index % 2 == 0 ? getColor(states) : getColors(states);
+                                },
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Divider(thickness: 2),
-                      ...List.generate(salesCartList.length, (index){
-                        return Column(
-                          children: [
-                            Container(
-                             // color: Colors.blue[50],
-                              color: Color(0xffD2D2FF),
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    flex: 10,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          flex: 1,
-                                          child: Center(
-                                            child: Text(
-                                              "${index + 1}.",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black87,
-                                                fontSize: h2TextSize,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 4,
-                                          child: Center(
-                                            child: Text(
-                                              "${salesCartList[index].categoryName}",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black87,
-                                                fontSize: h2TextSize,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 6,
-                                          child: Center(
-                                            child: Text(
-                                              "${salesCartList[index].name}",
-                                              style: TextStyle(
-                                                overflow:
-                                                TextOverflow.ellipsis,
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: h2TextSize,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Center(
-                                            child: Text(
-                                              "${salesCartList[index].quantity}",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black87,
-                                                fontSize: h2TextSize,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 3,
-                                          child: Center(
-                                            child: Text(
-                                              "${salesCartList[index].salesRate}",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black87,
-                                                fontSize: h2TextSize,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 3,
-                                          child: Center(
-                                            child: Text(
-                                              "${salesCartList[index].total}",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black87,
-                                                fontSize: h2TextSize,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                              cells: <DataCell>[
+                                DataCell(Center(child: Text("${index + 1}.",style: TextStyle(fontWeight: FontWeight.w500,color: Colors.black87, fontSize: h2TextSize)))),
+                                DataCell(
+                                  Center(
+                                    child: Text(
+                                      "${salesCartList[index].categoryName}",
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.black87,fontSize: h2TextSize,
+                                      ))),
+                                ),
+                                DataCell(
+                                  Center(
+                                    child: Text(
+                                      "${salesCartList[index].name}",
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.black87,fontSize: h2TextSize,
+                                      ))),
+                                ),
+
+                                // Quantity
+                                DataCell(
+                                  Center(
+                                    child: Text(
+                                      "${salesCartList[index].quantity}",
+                                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.black87,fontSize: h2TextSize,
+                                      ))),
+                                ),
+
+                                // Rate
+                                DataCell(
+                                  Center(
+                                    child: Text(
+                                      (double.tryParse(salesCartList[index].salesRate.toString().replaceAll(",", "").trim()) ?? 0.0).toStringAsFixed(2),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black87,
+                                        fontSize: h2TextSize,
+                                      ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+
+                                // Amount
+                                DataCell(
+                                  Center(
+                                    child: Text(
+                                      (double.tryParse(salesCartList[index].total.toString().replaceAll(",", "").trim()) ??0.0).toStringAsFixed(2),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black87,
+                                        fontSize: h2TextSize,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                //DataCell( Center( child: GestureDetector( onTap: () { removeFromCart(index); setState(() {}); }, child: const Icon(Icons.delete, size: 16, color: Colors.red)))),
+                              ],
                             ),
-                          ],
-                        );
-                      }),
-                      SizedBox(height: salesCartList.isNotEmpty ? 10 : 30),
-                    ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
+                ),
                   const SizedBox(height: 10),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                     width: double.infinity,
                     child: Card(
                       margin: EdgeInsets.only(bottom: 8),
-                      color: const Color.fromARGB(255, 7, 125, 180),
+                      color: Color.fromARGB(255, 7, 125, 180),
                       child: Center(
                         child: Text(
                           'Amount Details',
@@ -1601,7 +1340,6 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                     ),
                   ),
                   const SizedBox(height: 6),
-
                   ///test
                   Container(
                     width: double.infinity,
@@ -1609,8 +1347,6 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                     padding: const EdgeInsets.only(left: 4.0,right: 4.0),
                     decoration: BoxDecoration(
                       color: Color(0xffD2D2FF),
-                      //color: Colors.yellow.shade50,
-                      //color: Colors.blue[100],
                       borderRadius: BorderRadius.circular(15.0),
                       border: Border.all(
                           color: const Color.fromARGB(255, 7, 125, 180),
@@ -1620,25 +1356,19 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                           color: Colors.grey.withOpacity(0.6),
                           spreadRadius: 2,
                           blurRadius: 5,
-                          offset: const Offset(0, 3), // changes the position of the shadow
+                          offset: const Offset(0, 3), 
                         ),
                       ],
                     ),
                     child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            // const SizedBox(width: 28),
-                            const Text(
-                              "Sub Total :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(width: 12),
+                            const Expanded(flex: 3,child: Text("Sub Total",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                                flex: 3,
+                                flex: 11,
                                 child: Container(
                                   margin: const EdgeInsets.only(
                                     top: 4,),
@@ -1664,32 +1394,24 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            // const SizedBox(width: 65),
-                            const Text(
-                              "Vat :          ",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(width: 10),
+                            const Expanded(flex: 3,child: Text("Vat",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 2,
+                              flex: 6,
                               child: Container(
                                 height: 28.0,
                                 margin: const EdgeInsets.only(left: 5, right: 5),
                                 child: TextField(
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 126, 125, 125)),
+                                  style: const TextStyle(color: Color.fromARGB(255, 126, 125, 125)),
                                   controller: _VatController,
                                   onChanged: (value) {
                                     _transportController.text = '';
                                     _paidController.text = '';
                                     setState(() {
-                                      TotalVat = CartTotal *
-                                          (double.parse(_VatController.text) / 100);
+                                      TotalVat = CartTotal * (double.parse(_VatController.text) / 100);
                                       AfteraddVatTotal = CartTotal - TotalVat;
                                       DiccountTotal = AfteraddVatTotal;
                                       TransportTotal = DiccountTotal;
-
                                       Totaltc = CartTotal + TotalVat-double.parse(_discountPercentController.text);
                                       totalDue= Totaltc;
                                     });
@@ -1728,7 +1450,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                               width: 5,
                             ),
                             Expanded(
-                                flex: 1,
+                                flex: 5,
                                 child: Container(
                                   margin: const EdgeInsets.only(
                                       top: 5, bottom: 5),
@@ -1754,15 +1476,10 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            // const SizedBox(width: 30),
-                            const Text(
-                              "Discount :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(width: 10),
+                            const Expanded(flex: 3,child: Text("Discount",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 2,
+                              flex: 6,
                               child: Container(
                                 height: 28.0,
                                 margin: const EdgeInsets.only(left: 5, right: 5),
@@ -1784,28 +1501,6 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                       totalDue = Totaltc;
 
                                     });
-                                    // setState(() {
-                                    //   Diccountper = AfteraddVatTotal *
-                                    //       (double.parse(_DiscountController.text) /
-                                    //           100);
-                                    //   _discountPercentController.text =
-                                    //       "${Diccountper}";
-                                    //   DiccountTotal =
-                                    //       AfteraddVatTotal - Diccountper;
-                                    //   TransportTotal = DiccountTotal;
-                                    // });
-                                    //  setState(() {
-                                    //   Diccountper = AfteraddVatTotal *
-                                    //       (double.parse(_DiscountController.text) /
-                                    //           100);
-                                    //   // _discountPercentController.text =
-                                    //   //     "${Diccountper}";
-                                    //   DiccountTotal =
-                                    //       AfteraddVatTotal - Diccountper;
-                                    //   TransportTotal = DiccountTotal;
-                                    //   Totaltc = TransportTotal +
-                                    //       double.parse(_transportController.text);
-                                    // });
                                   },
                                   keyboardType: TextInputType.phone,
                                   decoration: InputDecoration(
@@ -1830,19 +1525,16 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                 ),
                               ),
                             ),
-                            const Text(
-                              "%",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
+                            const Text("%",
+                              style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)),
                             ),
                             const SizedBox(
                               width: 5,
                             ),
                             Expanded(
-                              flex: 1,
+                              flex: 5,
                               child: Container(
                                 height: 28.0,
-                                margin: const EdgeInsets.only(right: 2),
                                 child: TextField(
                                   style: const TextStyle(
                                       color: Color.fromARGB(255, 126, 125, 125)),
@@ -1891,15 +1583,10 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                         ),
                         Row(
                           children: [
-                            // const SizedBox(width: 24),
-                            const Text(
-                              "Transport :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(width: 10),
+                            const Expanded(flex: 3,child: Text("Transport",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 3,
+                              flex: 11,
                               child: Container(
                                 height: 28.0,
                                 margin: const EdgeInsets.only(top: 5, bottom: 5),
@@ -1944,18 +1631,12 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            // const SizedBox(width: 52),
-                            const Text(
-                              "Total :        ",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(width: 12),
+                            const Expanded(flex: 3,child: Text("Total",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                                flex: 3,
+                                flex: 11,
                                 child: Container(
-                                  margin: const EdgeInsets.only(
-                                      top: 0, bottom: 5),
+                                  margin: const EdgeInsets.only(top: 0, bottom: 5),
                                   height: 30,
                                   padding: const EdgeInsets.only(
                                       left: 5, right: 5, top: 5, bottom: 5),
@@ -1978,15 +1659,10 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                         ),
                         Row(
                           children: [
-                            // const SizedBox(width: 55),
-                            const Text(
-                              "Paid :         ",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                            const SizedBox(width: 12),
+                            const Expanded(flex: 3,child: Text("Paid",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 3,
+                              flex: 11,
                               child: Container(
                                 height: 28.0,
                                 margin: const EdgeInsets.only(bottom: 5),
@@ -2039,47 +1715,44 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text(
-                              "Due :             ",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
+                            const Expanded(flex: 3,child: Text("Due",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                            const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                                flex: 3,
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                    top: 0, bottom: 0,),
-                                  height: 30,
-                                  padding: const EdgeInsets.only(
-                                    left: 5, right: 5, top: 5,),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: const Color.fromARGB(255, 7, 125, 180),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.0),
+                              flex: 5,
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                  top: 0, bottom: 0,),
+                                height: 30,
+                                padding: const EdgeInsets.only(
+                                  left: 5, right: 5, top: 5,),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: const Color.fromARGB(255, 7, 125, 180),
+                                    width: 1.0,
                                   ),
-                                  child: Text(
-                                    "${totalDue == 0.0 ? CartTotal : totalDue.toStringAsFixed(2)}",
-                                    style: const TextStyle(
-                                        color: Color.fromARGB(255, 126, 125, 125)),
-                                    //"$TransportTotal",
-                                  ),
-                                )),
-                            const SizedBox(width: 10,),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Text(
+                                  "${totalDue == 0.0 ? CartTotal : totalDue.toStringAsFixed(2)}",
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 126, 125, 125)),
+                                  //"$TransportTotal",
+                                ),
+                              )),
                             const Expanded(
-                              flex: 1,
-                              child: Text(
-                                "P.Due ",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 126, 125, 125)),
+                              flex: 2,
+                              child: Center(
+                                child: Text(
+                                  "P.Due ",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 126, 125, 125)),
+                                ),
                               ),
                             ),
                             Expanded(
-                              flex: 2,
+                              flex: 4,
                               child: Container(
-                                //margin: const EdgeInsets.only(bottom: 2),
                                 height: 30,
                                 padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
                                 decoration: BoxDecoration(

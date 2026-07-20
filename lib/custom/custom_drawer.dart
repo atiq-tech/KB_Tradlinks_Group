@@ -65,70 +65,54 @@ class _MyDrawerSectionState extends State<MyDrawerSection> {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
-            height: 270.0,
+            height: 280.0,
             child: DrawerHeader(
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 7, 125, 180),
                 // image: DecorationImage(
                 //     image: AssetImage("assets/dwr.jpg"), fit: BoxFit.cover),
               ),
-              child: Column(
-                children: [
-                  const CircleAvatar(
-                    radius: 60.0,
-                    backgroundImage: AssetImage("images/1bidhan.jpg")
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    "${widget.name}",
-                    style: const TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w600,
-                        color: Color.fromARGB(255, 209, 233, 240)),
-                  ),
-                  const SizedBox(height: 10.0),
-                  // const Center(
-                  //   child: Text(
-                  //     "Business Management Apps",
-                  //     style: TextStyle(
-                  //         fontWeight: FontWeight.w600,
-                  //         fontSize: 18.0,
-                  //         color: Colors.white),
-                  //     maxLines: 1,
-                  //     overflow: TextOverflow.ellipsis,
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 10.0),
-                  const Center(
-                    child: Text(
-                      "KB TRADELINKS GROUP",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.0,
-                          color: Colors.white),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const CircleAvatar(
+                      radius: 60.0,
+                      backgroundImage: AssetImage("images/1bidhan.jpg")
                     ),
-                  ),
-                  const SizedBox(height: 10.0),
-                  const Center(
-                    child: Text(
-                      "Chairman: Bidhan Kumar Saha",
-                      style: TextStyle(
+                    const SizedBox(height: 8.0),
+                    Text(
+                      "${widget.name}",
+                      style: const TextStyle(
+                          fontSize: 20.0,
                           fontWeight: FontWeight.w600,
-                          fontSize: 14.0,
-                          color: Colors.white),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                          color: Color.fromARGB(255, 209, 233, 240)),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 5.0),
+                    const Center(
+                      child: Text(
+                        "KB TRADELINKS GROUP",
+                        style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16.0,color: Colors.white),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    const SizedBox(height: 5.0),
+                    const Center(
+                      child: Text(
+                        "Chairman: Bidhan Kumar Saha",
+                        style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14.0,color: Colors.white),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          const Divider(thickness: 2,),
+          const Divider(thickness: 2),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, ),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               children: [
                 GestureDetector(

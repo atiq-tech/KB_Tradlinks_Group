@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(65.0), // Size ektu barano holo vertical space-er jonno
         child: AppBar(
+          leadingWidth: 25.0,
           elevation: 2.0,
           backgroundColor: Colors.deepPurple,
           // Drawer icon (Hamburger menu) white korar jonno eita dorkar

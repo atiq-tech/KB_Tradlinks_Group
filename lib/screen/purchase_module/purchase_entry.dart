@@ -10,6 +10,7 @@ import 'package:kbtradlink/provider/branch_provider.dart';
 import 'package:kbtradlink/provider/category_provider.dart';
 import 'package:kbtradlink/provider/category_wise_product_provider.dart';
 import 'package:kbtradlink/provider/supplier_provider.dart';
+import 'package:kbtradlink/utils/all_textstyle.dart';
 import 'package:kbtradlink/utils/const_page.dart';
 import 'package:kbtradlink/screen/sales_module/model/branch_model.dart';
 import 'package:kbtradlink/screen/sales_module/model/category_model.dart';
@@ -103,8 +104,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
   Widget build(BuildContext context) {
     final allSupplier = Provider.of<SupplierProvider>(context).supplierList;
     final allCategory = Provider.of<CategoryProvider>(context).categoryList;
-    final productList = Provider.of<CategoryWiseProductProvider>(context)
-        .categoryWiseProductList;
+    final productList = Provider.of<CategoryWiseProductProvider>(context).categoryWiseProductList;
     final allBranch = Provider.of<BranchProvider>(context).branchList;
 
     return Scaffold(
@@ -162,63 +162,37 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          const Expanded(flex: 4,child: Text("Date to",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                const Expanded(
-                                  child: Text(
-                                    "Date to :",
-                                    style: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 126, 125, 125)),
+                            flex: 11,
+                            child: GestureDetector(
+                              onTap: () {
+                                _selectedDate();
+                              },
+                              child: Container(
+                                height: 30,
+                                width: double.infinity,
+                                padding: const EdgeInsets.only(top: 5, bottom: 5, left: 5, right: 5),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: const Color.fromARGB(255, 7, 125, 180),
+                                    width: 1.0,
                                   ),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                Expanded(
-                                  flex: 3,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      _selectedDate();
-                                    },
-                                    child: Container(
-                                      // margin:
-                                      // const EdgeInsets.only(top: 5, bottom: 5),
-                                      height: 30,
-                                      width: double.infinity,
-                                      padding: const EdgeInsets.only(
-                                          top: 5, bottom: 5, left: 5, right: 5),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              255, 7, 125, 180),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            firstPickedDate == null
-                                                ? Utils.formatFrontEndDate(
-                                                    DateTime.now())
-                                                : firstPickedDate!,
-                                            style:
-                                                const TextStyle(fontSize: 13.0),
-                                          ),
-                                          const Icon(
-                                            Icons.calendar_month,
-                                            size: 18,
-                                          )
-                                        ],
-                                      ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      firstPickedDate == null ? Utils.formatFrontEndDate(DateTime.now()) : firstPickedDate!,
+                                      style:const TextStyle(fontSize: 13.0),
                                     ),
-                                  ),
+                                    const Icon(Icons.calendar_month,size: 18)
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
                         ],
@@ -233,16 +207,13 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                   decoration: BoxDecoration(
                     color: Colors.green[100],
                     borderRadius: BorderRadius.circular(12.0),
-                    border: Border.all(
-                        color: const Color.fromARGB(255, 7, 125, 180),
-                        width: 1.0),
+                    border: Border.all(color: const Color.fromARGB(255, 7, 125, 180), width: 1.0),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.6),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: const Offset(
-                            0, 3), // changes the position of the shadow
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -251,16 +222,10 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                     children: [
                       Row(
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Supplier     :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Supplier",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 11,
                             child: Container(
                               margin:const EdgeInsets.only(bottom: 5, right:0),
                               height: 30,
@@ -311,11 +276,9 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                       .where((element) => element.displayName
                                           .toString()
                                           .toLowerCase()
-                                          .contains(
-                                              pattern.toString().toLowerCase()))
+                                          .contains(pattern.toString().toLowerCase()))
                                       .take(allSupplier.length)
                                       .toList();
-                                  // return placesSearchResult.where((element) => element.name.toLowerCase().contains(pattern.toString().toLowerCase())).take(10).toList();
                                 },
                                 itemBuilder: (context, suggestion) {
                                   return SizedBox(
@@ -331,17 +294,13 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                     ),
                                   );
                                 },
-                                transitionBuilder:
-                                    (context, suggestionsBox, controller) {
+                                transitionBuilder:(context, suggestionsBox, controller) {
                                   return suggestionsBox;
                                 },
-                                onSuggestionSelected:
-                                    (SupplierModel suggestion) {
-                                  supplyerController.text =
-                                      suggestion.displayName!;
+                                onSuggestionSelected:(SupplierModel suggestion) {
+                                  supplyerController.text = suggestion.displayName!;
                                   setState(() {
-                                    _selectedSupplier =
-                                        suggestion.supplierSlNo.toString();
+                                    _selectedSupplier = suggestion.supplierSlNo.toString();
                                     if (_selectedSupplier == 'null') {
                                       print("No has not $_selectedSupplier");
 
@@ -367,25 +326,10 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                                     '${suggestion.supplierSlNo}')) // or Testing 123
                                             .toList(),
                                       ];
-                                      results.forEach((element) async {
-                                        element.add(element.first);
-                                        print(
-                                            "supplierSlNo  ${element[0].supplierSlNo}");
-                                        print(
-                                            "supplierMobile  ${element[0].supplierMobile}");
-                                        print(
-                                            "supplierName  ${element[0].supplierName}");
-                                        print(
-                                            "supplierAddress  ${element[0].supplierAddress}");
-                                        // print("previousDue  ${element[0].previousDue}");
-
-                                        // Previousdue =double.parse("${element[0].previousDue}");
-                                        _nameController.text =
-                                            "${element[0].supplierName}";
-                                        _mobileNumberController.text =
-                                            "${element[0].supplierMobile}";
-                                        _addressController.text =
-                                            "${element[0].supplierAddress}";
+                                      results.forEach((element) async {element.add(element.first);
+                                        _nameController.text = "${element[0].supplierName}";
+                                        _mobileNumberController.text = "${element[0].supplierMobile}";
+                                        _addressController.text = "${element[0].supplierAddress}";
                                         dueReport(supplierId);
                                       });
                                     }
@@ -401,20 +345,15 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                         visible: isVisible,
                         child: Row(
                           children: [
-                            const Expanded(
-                              flex: 1,
-                              child: Text(
-                                "Name         :",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 126, 125, 125)),
-                              ),
-                            ),
+                          const Expanded(flex: 4,child: Text("Name",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                             Expanded(
-                              flex: 3,
+                              flex: 11,
                               child: Container(
                                 height: 30.0,
                                 margin: const EdgeInsets.only(bottom: 5),
                                 child: TextFormField(
+                                  style: AllTextStyle.dateFormatStyle,
                                   controller: _nameController,
                                   keyboardType: TextInputType.text,
                                   validator: (value) {
@@ -424,6 +363,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                     return null;
                                   },
                                   decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.only(left: 5,  bottom: 8),
                                     filled: true,
                                     fillColor: Colors.white,
                                     border: InputBorder.none,
@@ -448,16 +388,10 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                       ), // drop down
                       Row(
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Mobile No :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Mobile No",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 11,
                             child: Container(
                               height: 30.0,
                               margin: const EdgeInsets.only(bottom: 4),
@@ -466,7 +400,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                 color: Colors.white,
                               ),
                               child: TextFormField(
-                                style: const TextStyle(fontSize: 13),
+                                style: AllTextStyle.dateFormatStyle,
                                 controller: _mobileNumberController,
                                 enabled: isEnabled,
                                 validator: (value) {
@@ -479,9 +413,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.only(
-                                      bottom: 18, left: 5),
-                                  // filled: true,
-                                  // fillColor: isEnabled == true ? Colors.white : Colors.grey[200],
+                                      bottom: 8, left: 5),
                                   border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
@@ -504,16 +436,10 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
 
                       Row(
                         children: [
-                          const Text(
-                            "Address    :",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 126, 125, 125)),
-                          ),
-                          const SizedBox(
-                            width: 24,
-                          ),
+                          const Expanded(flex: 4,child: Text("Address",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 11,
                             child: Container(
                               height: 30,
                               decoration: BoxDecoration(
@@ -521,11 +447,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                 color: Colors.white,
                               ),
                               child: TextFormField(
-                                //minLines: 2,
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                ),
-                                // maxLines: 2,
+                                style: AllTextStyle.dateFormatStyle,
                                 controller: _addressController,
                                 validator: (value) {
                                   if (value != null || value != '') {
@@ -536,11 +458,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                 enabled: isEnabled,
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.only(
-                                      bottom: 18, left: 5),
-                                  // filled: true,
-                                  // fillColor: isEnabled == true
-                                  //     ? Colors.white
-                                  //     : Colors.grey[200],
+                                      bottom: 8, left: 5),
 
                                   border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
@@ -591,16 +509,10 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                     children: [
                       Row(
                         children: [
-                          const Text(
-                            "Warehouse :",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 126, 125, 125)),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
+                          const Expanded(flex: 4,child: Text("Warehouse",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 11,
                             child: Container(
                               height: 30,
                               padding: const EdgeInsets.only(left: 5, right: 5),
@@ -690,18 +602,10 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
 
                       Row(
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Category   :",
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 126, 125, 125),
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Category",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 11,
                             child: Container(
                               height: 30,
                               padding: const EdgeInsets.only(left: 5, right: 5),
@@ -808,16 +712,10 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                       ), // category
                       Row(
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Product     :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Product",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 11,
                             child: Container(
                               height: 30,
                               padding: const EdgeInsets.only(left: 5, right: 5),
@@ -906,30 +804,12 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                               '${suggestion.productSlNo}')) // or Testing 123
                                           .toList(),
                                     ];
-                                    results.forEach((element) async {
-                                      element.add(element.first);
-                                      print("dfhsghdfkhgkh");
+                                    results.forEach((element) async {element.add(element.first);
                                       productId = "${element[0].productSlNo}";
-                                      print(
-                                          "productSlNo===> ${element[0].productSlNo}");
-                                      print(
-                                          "productCategoryName===> ${element[0].productCategoryName}");
                                       productname = "${element[0].productName}";
-                                      print(
-                                          "productName===> ${element[0].productName}");
-                                      _Selling_PriceController.text =
-                                          "${element[0].productSellingPrice}";
-                                      print(
-                                          "productSellingPrice===> ${element[0].productSellingPrice}");
-                                      print("vat===> ${element[0].vat}");
-                                      print(
-                                          "_quantityController ===> ${_quantityController.text}");
-                                      print(
-                                          "productPurchaseRate===> ${element[0].productPurchaseRate}");
-                                      _salesRateController.text =
-                                          "${element[0].productPurchaseRate}";
-                                      Amount = double.parse(
-                                          _salesRateController.text);
+                                      _Selling_PriceController.text = "${element[0].productSellingPrice}";
+                                      _salesRateController.text = "${element[0].productPurchaseRate}";
+                                      Amount = double.parse(_salesRateController.text);
                                       print(Amount);
                                     });
                                   });
@@ -943,19 +823,12 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const Expanded(
-                            flex: 2,
-                            child: Text(
-                              "Pur. Rate   :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Pur. Rate",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 5,
                             child: Container(
                               height: 30.0,
-                              margin: const EdgeInsets.only(left: 5, right: 5),
                               child: TextField(
                                 style: const TextStyle(
                                   fontSize: 13,
@@ -985,22 +858,20 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
                           const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Qty",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
+                            flex: 2,
+                            child: Center(
+                              child: Text(
+                                "Qty",
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 126, 125, 125)),
+                              ),
                             ),
                           ),
                           Expanded(
-                            flex: 2,
+                            flex: 4,
                             child: SizedBox(
                               height: 30.0,
-                              // margin: const EdgeInsets.only(right: 5),
                               child: TextField(
                                 style: const TextStyle(
                                   fontSize: 13,
@@ -1052,55 +923,41 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                       ),
                       Row(
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Amount     :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125),
-                                  fontSize: 14),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Amount",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                              flex: 3,
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  bottom: 5,
-                                ),
-                                height: 30,
-                                padding: const EdgeInsets.only(
-                                    left: 5, right: 5, top: 5),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 7, 125, 180),
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Text(
-                                  "$Amount",
-                                  style: const TextStyle(fontSize: 13),
-                                ),
-                              )),
+                          flex: 11,
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                              bottom: 5,
+                            ),
+                            height: 30,
+                            padding: const EdgeInsets.only(
+                                left: 5, right: 5, top: 5),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color:
+                                    const Color.fromARGB(255, 7, 125, 180),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Text(
+                              "$Amount",
+                              style: const TextStyle(fontSize: 13),
+                            ),
+                          )),
                         ],
                       ),
                       Row(
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Selling Price :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Selling Price",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 11,
                             child: SizedBox(
                               height: 30.0,
-                              //margin: const EdgeInsets.only(bottom: 5),
                               child: TextField(
                                 style: const TextStyle(fontSize: 13),
                                 controller: _Selling_PriceController,
@@ -1208,196 +1065,160 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                     ],
                   ),
                 ),
-                Column(
-                  children: [
-                    const Divider(thickness: 2),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: Center(
-                              child: Text(
-                                "SL.",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: h2TextSize),
-                              ),
-                            )),
-                        Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Text(
-                                "Category",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: h2TextSize,
-                                ),
-                              ),
-                            )),
-                        Expanded(
-                            flex: 5,
-                            child: Center(
-                              child: Text(
-                                "Product Name",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: h2TextSize,
-                                ),
-                              ),
-                            )),
-                        Expanded(
-                            flex: 1,
-                            child: Center(
-                              child: Text(
-                                "Qty",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: h2TextSize,
-                                ),
-                              ),
-                            )),
-                        Expanded(
-                            flex: 2,
-                            child: Center(
-                              child: Text(
-                                "P.Rate",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: h2TextSize,
-                                ),
-                              ),
-                            )),
-                        Expanded(
-                          flex: 3,
-                          child: Center(
-                            child: Text(
-                              "Amount",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: h2TextSize,
-                              ),
-                            ),
-                          ),
+                Container(
+                height: PurchaseCartList.isEmpty ? 40 : PurchaseCartList.length == 1 ? 55 : 35 + (PurchaseCartList.length * 20.0),
+                width: double.infinity,
+                padding: const EdgeInsets.only(
+                  top: 5.0,
+                  bottom: 10.0,
+                ),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: DataTable(
+                        headingRowHeight: 20.0,
+                        dataRowHeight: 20.0,
+
+                        headingRowColor:
+                            MaterialStateColor.resolveWith(
+                          (states) => Colors.green.shade900,
                         ),
-                      ],
-                    ),
-                    const Divider(thickness: 2),
-                    ...List.generate(PurchaseCartList.length, (index) {
-                      return Column(
-                        children: [
-                          Container(
-                            color: Colors.blue[50],
-                            height: 25,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  flex: 10,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Center(
-                                          child: Text(
-                                            "${index + 1}.",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black87,
-                                              fontSize: h2TextSize,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 3,
-                                        child: Center(
-                                          child: Text(
-                                            "${PurchaseCartList[index].categoryName}",
-                                            style: TextStyle(
-                                              overflow: TextOverflow.ellipsis,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black87,
-                                              fontSize: h2TextSize,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 5,
-                                        child: Center(
-                                          child: Text(
-                                            "${PurchaseCartList[index].name}",
-                                            style: TextStyle(
-                                              overflow: TextOverflow.ellipsis,
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: h2TextSize,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Center(
-                                          child: Text(
-                                            "${PurchaseCartList[index].quantity}",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black87,
-                                              fontSize: h2TextSize,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Center(
-                                          child: Text(
-                                            "${PurchaseCartList[index].salesRate}",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black87,
-                                              fontSize: h2TextSize,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 3,
-                                        child: Center(
-                                          child: Text(
-                                            "${PurchaseCartList[index].total}",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black87,
-                                              fontSize: h2TextSize,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+
+                        border: TableBorder.all(
+                          color: Colors.blueGrey.shade100,
+                          width: 1,
+                        ),
+
+                        columns: [
+                          customDataColumn("SL."),
+                          customDataColumn("Category"),
+                          customDataColumn("Product Name"),
+                          customDataColumn("Qty"),
+                          customDataColumn("P.Rate"),
+                          customDataColumn("Amount"),
+                        ],
+
+                        rows: List.generate(
+                          PurchaseCartList.length,
+                          (int index) => DataRow(
+                            color: MaterialStateProperty.resolveWith(
+                              (states) => Colors.blue.shade50,
+                            ),
+
+                            cells: <DataCell>[
+                              // SL
+                              DataCell(
+                                Center(
+                                  child: Text(
+                                    "${index + 1}.",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black87,
+                                      fontSize: h2TextSize,
+                                    ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+
+                              // Category
+                              DataCell(
+                                Center(
+                                  child: Text(
+                                    "${PurchaseCartList[index].categoryName}",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black87,
+                                      fontSize: h2TextSize,
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              // Product Name
+                              DataCell(
+                                Center(
+                                  child: Text(
+                                    "${PurchaseCartList[index].name}",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: h2TextSize,
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              // Quantity
+                              DataCell(
+                                Center(
+                                  child: Text(
+                                    "${PurchaseCartList[index].quantity}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black87,
+                                      fontSize: h2TextSize,
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              // P.Rate
+                              DataCell(
+                                Center(
+                                  child: Text(
+                                    (double.tryParse(
+                                              PurchaseCartList[index]
+                                                  .salesRate
+                                                  .toString()
+                                                  .replaceAll(",", "")
+                                                  .trim(),
+                                            ) ??
+                                            0.0)
+                                        .toStringAsFixed(2),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black87,
+                                      fontSize: h2TextSize,
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              // Amount
+                              DataCell(
+                                Center(
+                                  child: Text(
+                                    (double.tryParse(
+                                              PurchaseCartList[index]
+                                                  .total
+                                                  .toString()
+                                                  .replaceAll(",", "")
+                                                  .trim(),
+                                            ) ??
+                                            0.0)
+                                        .toStringAsFixed(2),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black87,
+                                      fontSize: h2TextSize,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      );
-                    }),
-                    SizedBox(height: PurchaseCartList.isNotEmpty ? 10 : 30),
-                  ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
+              ),
                 SizedBox(
                   height: 40,
                   width: double.infinity,
@@ -1423,7 +1244,6 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                   padding: const EdgeInsets.only(left: 6.0, right: 6.0),
                   decoration: BoxDecoration(
                     color: Colors.green[100],
-                    //color: Colors.blue[100],
                     borderRadius: BorderRadius.circular(15.0),
                     border: Border.all(
                         color: const Color.fromARGB(255, 7, 125, 180),
@@ -1433,8 +1253,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                         color: Colors.grey.withOpacity(0.6),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: const Offset(
-                            0, 3), // changes the position of the shadow
+                        offset: const Offset(0, 3), 
                       ),
                     ],
                   ),
@@ -1442,46 +1261,34 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                     children: [
                       Row(
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Sub Total   :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Sub Total",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                              flex: 3,
-                              child: Container(
-                                margin:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                height: 30,
-                                padding: const EdgeInsets.only(
-                                    left: 5, right: 5, top: 5, bottom: 5),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 7, 125, 180),
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Text(
-                                  "$CartTotal",
-                                ),
-                              )),
+                          flex: 11,
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 5, bottom: 5),
+                            height: 30,
+                            padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: const Color.fromARGB(255, 7, 125, 180),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Text(
+                              "$CartTotal",
+                            ),
+                          )),
                         ],
                       ),
                       Row(
                         children: [
-                          const Text(
-                            "Vat             :   ",
-                            style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)),
-                          ),
-                          const SizedBox(width: 8.0),
+                          const Expanded(flex: 4,child: Text("Vat",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 2,
+                            flex: 4,
                             child: Container(
                               height: 30.0,
                               margin: const EdgeInsets.only(bottom: 5),
@@ -1520,19 +1327,17 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          const Text(
-                            "%",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 126, 125, 125)),
-                          ),
-                          const SizedBox(
-                            width: 5,
+                          const Expanded(
+                            flex: 2,
+                            child: Center(
+                              child: Text(
+                                "%",
+                                style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)),
+                              ),
+                            ),
                           ),
                           Expanded(
-                              flex: 1,
+                              flex: 5,
                               child: Container(
                                 margin: const EdgeInsets.only(bottom: 5),
                                 height: 30,
@@ -1555,16 +1360,10 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                       ),
                       Row(
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Discount   :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Discount",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 11,
                             child: Container(
                               height: 30.0,
                               margin: const EdgeInsets.only(
@@ -1609,16 +1408,10 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                       ),
                       Row(
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Transport  :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Transport",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 11,
                             child: Container(
                               height: 30.0,
                               margin: const EdgeInsets.only(bottom: 5),
@@ -1660,16 +1453,10 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                       ),
                       Row(
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Own Transport :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Own Transport",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 11,
                             child: Container(
                               height: 30.0,
                               margin: const EdgeInsets.only(bottom: 5),
@@ -1703,49 +1490,35 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                       ),
                       Row(
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Total          :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Total",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                              flex: 3,
-                              child: Container(
-                                margin: const EdgeInsets.only(bottom: 5),
-                                height: 30,
-                                padding: const EdgeInsets.only(
-                                    left: 5, right: 5, top: 5, bottom: 5),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 7, 125, 180),
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Text(
-                                  "$Paid",
-                                ),
-                              )),
+                          flex: 11,
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 5),
+                            height: 30,
+                            padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: const Color.fromARGB(255, 7, 125, 180),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Text(
+                              "$Paid",
+                            ),
+                          )),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "Paid           :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                            ),
-                          ),
+                          const Expanded(flex: 4,child: Text("Paid",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
                           Expanded(
-                            flex: 3,
+                            flex: 11,
                             child: Container(
                               height: 30.0,
                               margin: const EdgeInsets.only(bottom: 5),
@@ -1787,53 +1560,43 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const Expanded(
-                            flex: 3,
+                          const Expanded(flex: 4,child: Text("Due",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          const Expanded(flex: 1,child: Text(":",style: TextStyle(color: Color.fromARGB(255, 126, 125, 125)))),
+                          Expanded(
+                          flex: 4,
+                          child: Container(
+                            // margin: const EdgeInsets.only(bottom: 5),
+                            height: 30,
+                            padding: const EdgeInsets.only(
+                                left: 5, right: 5, top: 5, bottom: 5),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color:
+                                    const Color.fromARGB(255, 7, 125, 180),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
                             child: Text(
-                              "Due            :",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 125, 125)),
+                              "${TotalAmount == 0.0 ? CartTotal : TotalAmount}",
+                            ),
+                          )),
+                          const Expanded(
+                            flex: 2,
+                            child: Center(
+                              child: Text(
+                                "P.Due",
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color.fromARGB(255, 126, 125, 125)),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ),
                           Expanded(
-                              flex: 4,
-                              child: Container(
-                                // margin: const EdgeInsets.only(bottom: 5),
-                                height: 30,
-                                padding: const EdgeInsets.only(
-                                    left: 5, right: 5, top: 5, bottom: 5),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 7, 125, 180),
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Text(
-                                  "${TotalAmount == 0.0 ? CartTotal : TotalAmount}",
-                                ),
-                              )),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Expanded(
-                            flex: 1,
-                            child: Text(
-                              "P.Due",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color.fromARGB(255, 126, 125, 125)),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                              flex: 3,
+                              flex: 5,
                               child: Container(
                                 //margin: const EdgeInsets.only(bottom: 5),
                                 height: 30,

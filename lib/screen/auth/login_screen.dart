@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kbtradlink/utils/const_page.dart';
 import 'package:kbtradlink/screen/home_screen.dart';
+import 'package:kbtradlink/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -70,23 +71,20 @@ class _LogInPageState extends State<LogInPage> {
 
         print("name : ${GetStorage().read("name")}");
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.black,
-            content: Center(child: Text("${item["message"]}",style: const TextStyle(color: Colors.white),))));
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HomePage()));
+       Utils.showMotionToast(
+          context,
+          title: "${item["message"]}!",
+          description: "Welcome to KB Tradelinks Group Sales Management App",
+          icon: Icons.check_circle,
+          duration: const Duration(seconds: 3),
+        );
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
 
       }else{
         setState(() {
           isLogInBtnClk = false;
           isError=true;
         });
-        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //     backgroundColor: Colors.black,
-        //     duration: const Duration(seconds: 3),
-        //     content: Center(child: Text("${item["message"]}",style: const TextStyle(color: Colors.red),))));
       }
     } catch (e) {
       print("eoor messange $e");
