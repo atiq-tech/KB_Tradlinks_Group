@@ -208,8 +208,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                     margin: const EdgeInsets.only(bottom: 10),
                     padding: const EdgeInsets.only(left: 4.0,right: 4.0),
                     decoration: BoxDecoration(
-                      color: Color(0xffD2D2FF),
-                      //color: Colors.yellow.shade50,
+                      color: const Color(0xffD2D2FF),
                       borderRadius: BorderRadius.circular(15.0),
                       border: Border.all(
                           color: const Color.fromARGB(255, 7, 125, 180),
@@ -219,7 +218,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                           color: Colors.grey.withOpacity(0.6),
                           spreadRadius: 2,
                           blurRadius: 5,
-                          offset: const Offset(0, 3), // changes the position of the shadow
+                          offset: const Offset(0, 3), 
                         ),
                       ],
                     ),
@@ -289,16 +288,22 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                     style: const TextStyle(fontSize: 12),
                                     controller: empluyeeNameController,
                                     decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
                                       isDense: true,
                                       hintText: 'Select Employee',
                                       hintStyle: const TextStyle(fontSize: 13.0),
-                                      suffix: employeeSlNo == '' ? null : GestureDetector(
+                                      suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                      suffixIcon: employeeSlNo == '' ? null : GestureDetector(
                                         onTap: () {
                                           setState(() {
                                             empluyeeNameController.text = '';
                                           });
                                         },
-                                        child: const Icon(Icons.close,size: 14,),
+                                        child: const Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: 3),
+                                          child: Icon(Icons.close,size: 16),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -469,10 +474,13 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                       ),
                                       controller: customerController,
                                       decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
                                         hintText: 'Select Customer',
                                         isDense: true,
                                         hintStyle: const TextStyle(fontSize: 12.0),
-                                        suffix: _selectedCustomer == '' ? null : GestureDetector(
+                                        suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                        suffixIcon: _selectedCustomer == '' ? null : GestureDetector(
                                           onTap: () {
                                             setState(() {
                                               customerController.text = '';
@@ -482,7 +490,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                           },
                                           child: const Padding(
                                             padding: EdgeInsets.symmetric(horizontal: 3),
-                                            child: Icon(Icons.close,size: 14,),
+                                            child: Icon(Icons.close,size: 16),
                                           ),
                                         ),
                                       )
@@ -612,7 +620,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                     },
                                     keyboardType: TextInputType.text,
                                     decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.only(left: 6, bottom: 6),
+                                      contentPadding: EdgeInsets.only(left: 6, bottom: isVisible == true ? 6 : 16),
                                       filled: true,
                                       fillColor: Colors.white,
                                       border: InputBorder.none,
@@ -653,7 +661,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                     return null;
                                   },
                                   decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.only(left: 6, bottom: 6),
+                                    contentPadding: EdgeInsets.only(left: 6, bottom: isVisible == true ? 6 : 17),
                                     border: InputBorder.none,
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -682,7 +690,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                             Expanded(
                               flex: 11,
                               child: Container(
-                                height: 30,
+                                height: 35,
                                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0),color: Colors.grey[200],),
                                 child: TextFormField(
                                   style: const TextStyle(fontSize: 13),
@@ -696,7 +704,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                   },
                                   enabled: isEnabled,
                                   decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.only(bottom:5,left: 5),
+                                    contentPadding: EdgeInsets.only(bottom:isVisible == true ? 6 : 16,left: 5),
                                     border: InputBorder.none,
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -775,10 +783,14 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                       ),
                                       controller: branchController,
                                       decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
                                         hintText: 'Select Branch',
                                         isDense: true,
                                         hintStyle: const TextStyle(fontSize: 13),
-                                        suffix: branchId == '' ? null : GestureDetector(
+                                        suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                        contentPadding: const EdgeInsets.only(top: 5),
+                                        suffixIcon: branchId == '' ? null : GestureDetector(
                                           onTap: () {
                                             setState(() {
                                               branchController.text = '';
@@ -786,7 +798,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                           },
                                           child: const Padding(
                                             padding: EdgeInsets.symmetric(horizontal: 3),
-                                            child: Icon(Icons.close,size: 14,),
+                                            child: Icon(Icons.close,size: 16),
                                           ),
                                         ),
                                       )
@@ -861,10 +873,14 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                       ),
                                       controller: categoryController,
                                       decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
                                         hintText: 'Select Category',
                                         isDense: true,
                                         hintStyle: const TextStyle(fontSize: 13),
-                                        suffix: categoryId == '' ? null : GestureDetector(
+                                        suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                        contentPadding: const EdgeInsets.only(top: 6),
+                                        suffixIcon: categoryId == '' ? null : GestureDetector(
                                           onTap: () {
                                             setState(() {
                                               categoryController.text = '';
@@ -872,7 +888,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                           },
                                           child: const Padding(
                                             padding: EdgeInsets.symmetric(horizontal: 3),
-                                            child: Icon(Icons.close,size: 14,),
+                                            child: Icon(Icons.close,size: 16),
                                           ),
                                         ),
                                       )
@@ -955,10 +971,14 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                           ),
                                           controller: productController,
                                           decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            enabledBorder: InputBorder.none,
                                             isDense: true,
                                             hintText: 'Select Product',
                                             hintStyle: const TextStyle(fontSize: 13),
-                                            suffix: _selectedProduct == '' ? null : GestureDetector(
+                                            suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                            contentPadding: const EdgeInsets.only(top: 5),
+                                            suffixIcon: _selectedProduct == '' ? null : GestureDetector(
                                               onTap: () {
                                                 setState(() {
                                                   productController.text = '';
@@ -966,7 +986,7 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                                               },
                                               child: const Padding(
                                                 padding: EdgeInsets.symmetric(horizontal: 3),
-                                                child: Icon(Icons.close,size: 14,),
+                                                child: Icon(Icons.close,size: 16),
                                               ),
                                             ),
                                           )
@@ -1222,7 +1242,6 @@ class _SalesEntryPageState extends State<SalesEntryPage> {
                       ],
                     ),
                   ),
-
                   Container(
                   height: salesCartList.isEmpty ? 40 : salesCartList.length == 1 ? 55 : 35 + (salesCartList.length * 20.0),
                   width: double.infinity,

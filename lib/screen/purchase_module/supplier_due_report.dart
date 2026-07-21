@@ -188,6 +188,8 @@ class _SupplierDueListState extends State<SupplierDueList> {
                                   ),
                                   controller: supplierController,
                                   decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
                                     contentPadding: const EdgeInsets.only(bottom: 12),
                                     hintText: 'Select Supplier',
                                     suffix: _selectedSupplier == '' ? null : GestureDetector(
@@ -197,8 +199,8 @@ class _SupplierDueListState extends State<SupplierDueList> {
                                         });
                                       },
                                       child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 3),
-                                        child: Icon(Icons.close,size: 14,),
+                                        padding: EdgeInsets.symmetric(horizontal: 8),
+                                        child: Icon(Icons.close,size: 14),
                                       ),
                                     ),
                                   )

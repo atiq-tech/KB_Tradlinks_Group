@@ -158,8 +158,10 @@ class _ProductLedgerState extends State<ProductLedger> {
                                   ),
                                   controller: productController,
                                   decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
                                     contentPadding:
-                                        const EdgeInsets.only(bottom: 12),
+                                        const EdgeInsets.only(bottom: 11),
                                     hintText: 'Select Product',
                                     suffix: _selectedProduct == ''
                                         ? null
@@ -171,10 +173,10 @@ class _ProductLedgerState extends State<ProductLedger> {
                                             },
                                             child: const Padding(
                                               padding: EdgeInsets.symmetric(
-                                                  horizontal: 5),
+                                                  horizontal: 8),
                                               child: Icon(
                                                 Icons.close,
-                                                size: 14,
+                                                size: 14
                                               ),
                                             ),
                                           ),
@@ -195,7 +197,7 @@ class _ProductLedgerState extends State<ProductLedger> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 10),
                                     child: Text(
-                                      "${suggestion.displayText}",
+                                      suggestion.displayText,
                                       style: const TextStyle(fontSize: 12),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,

@@ -113,198 +113,188 @@ class _CustomerPaymentHistoryState extends State<CustomerPaymentHistory> {
           Container(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
             child: Container(
-              // margin: const EdgeInsets.only(bottom: 10),
               padding: const EdgeInsets.only(left: 4.0, right: 4.0,bottom: 4.0),
               decoration: BoxDecoration(
-                color: Color(0xffD2D2FF),
-                //color: Colors.yellow.shade50,
-                //color: Colors.blue[100],
+                color: const Color(0xffD2D2FF),
                 borderRadius: BorderRadius.circular(15.0),
                 border: Border.all(
-                    color: const Color.fromARGB(255, 7, 125, 180),
-                    width: 1.0),
+                  color: const Color.fromARGB(255, 7, 125, 180),
+                  width: 1.0),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.6),
                     spreadRadius: 2,
                     blurRadius: 5,
-                    offset: const Offset(0, 3), // changes the position of the shadow
+                    offset: const Offset(0, 3), 
                   ),
                 ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        const Expanded(
-                          flex: 3,
-                          child: Text(
-                            "Customer         :",
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
+                  Row(
+                    children: [
+                      const Expanded(
+                        flex: 3,
+                        child: Text(
+                          "Customer         :",
+                          style: TextStyle(
+                            fontSize: 14,
                           ),
                         ),
-                        Expanded(
-                          flex: 7,
-                          child: Container(
-                            margin: const EdgeInsets.only(top:5,bottom: 5),
-                            height: 30,
-                            padding: const EdgeInsets.only(left: 5, right: 5),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: const Color.fromARGB(255, 7, 125, 180),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 5,bottom: 5),
+                          height: 30,
+                          padding: const EdgeInsets.only(left: 5, right: 5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 7, 125, 180),
+                              width: 1.0,
                             ),
-                            child: TypeAheadFormField(
-                              textFieldConfiguration:
-                              TextFieldConfiguration(
-                                  onChanged: (value){
-                                    if (value == '') {
-                                      _selectedCustomer = '';
-                                    }
-                                  },
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey.shade600,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: TypeAheadFormField(
+                            textFieldConfiguration:
+                            TextFieldConfiguration(
+                                onChanged: (value){
+                                  if (value == '') {
+                                    _selectedCustomer = '';
+                                  }
+                                },
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade600,
+                                ),
+                                controller: customerController,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  hintText: 'Select Customer',
+                                  isDense: true,
+                                  suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                  hintStyle: const TextStyle(fontSize: 12.0),
+                                  suffixIcon: _selectedCustomer == '' || _selectedCustomer == 'null' || _selectedCustomer == null ? null
+                                   : GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        customerController.text = '';
+                                      });
+                                    },                   
+                                    child: const Icon(Icons.close,size: 16),
                                   ),
-                                  controller: customerController,
-                                  decoration: InputDecoration(
-                                    hintText: 'Select Customer',
-                                    isDense: true,
-                                    hintStyle: const TextStyle(fontSize: 12.0),
-                                    suffix: _selectedCustomer == '' ? null : GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          customerController.text = '';
-                                        });
-                                      },
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 3),
-                                        child: Icon(Icons.close,size: 14,),
-                                      ),
-                                    ),
-                                  )
-                              ),
-                              suggestionsCallback: (pattern) {
-                                return allCustomerData
-                                    .where((element) => element
-                                    .displayName!
-                                    .toLowerCase()
-                                    .contains(pattern
-                                    .toString()
-                                    .toLowerCase()))
-                                    .take(allCustomerData.length)
-                                    .toList();
-                                // return placesSearchResult.where((element) => element.name.toLowerCase().contains(pattern.toString().toLowerCase())).take(10).toList();
-                              },
-                              itemBuilder: (context, suggestion) {
-                                return SizedBox(
-                                  width: double.infinity,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                                    child: Text(
-                                      "${suggestion.customerCode} - ${suggestion.customerName} - - ${suggestion.customerAddress}",
-                                      style: const TextStyle(fontSize: 12),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                )
+                            ),
+                            suggestionsCallback: (pattern) {
+                              return allCustomerData
+                                  .where((element) => element
+                                  .displayName!
+                                  .toLowerCase()
+                                  .contains(pattern
+                                  .toString()
+                                  .toLowerCase()))
+                                  .take(allCustomerData.length)
+                                  .toList();
+                              
+                            },
+                            itemBuilder: (context, suggestion) {
+                              return SizedBox(
+                                width: double.infinity,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                  child: Text(
+                                    "${suggestion.customerCode} - ${suggestion.customerName} - - ${suggestion.customerAddress}",
+                                    style: const TextStyle(fontSize: 12),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                );
-                              },
-                              transitionBuilder:
-                                  (context, suggestionsBox, controller) {
-                                return suggestionsBox;
-                              },
-                              onSuggestionSelected:
-                                  (CustomerModel suggestion) {
-                                customerController.text =
-                                suggestion.displayName!;
+                                ),
+                              );
+                            },
+                            transitionBuilder:(context, suggestionsBox, controller) {
+                              return suggestionsBox;
+                            },
+                            onSuggestionSelected:(CustomerModel suggestion) {
+                              customerController.text =
+                              suggestion.displayName!;
+                              setState(() {
+                                _selectedCustomer = suggestion.customerSlNo.toString();
+                  
+                              });
+                            },
+                            onSaved: (value) {},
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Expanded(
+                        flex: 3,
+                        child: Text(
+                          "Payment Type :",
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 2),
+                          height: 30,
+                          padding: const EdgeInsets.only(left: 5, right: 5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 7, 125, 180),
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              hint: const Text(
+                                'Please select a payment type',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ), // Not necessary for Option 1
+                              value: _selectedPaymentType,
+                              onChanged: (newValue) {
                                 setState(() {
-                                  _selectedCustomer = suggestion.customerSlNo.toString();
-                                  //customerSlNo = suggestion.customerSlNo.toString();
-                                  print("customer selected ======> $_selectedCustomer");
-
+                                  _selectedPaymentType = newValue.toString();
+                                  _selectedPaymentType == 'Paid'
+                                      ? paymentType = 'paid'
+                                      : _selectedPaymentType == 'Received'
+                                      ? paymentType = "received"
+                                      : _selectedPaymentType == 'All'
+                                      ? paymentType = ""
+                                      : paymentType = "";
+                                  print("Payment Type: $paymentType");
                                 });
                               },
-                              onSaved: (value) {},
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Expanded(
-                          flex: 3,
-                          child: Text(
-                            "Payment Type :",
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 7,
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 2),
-                            height: 30,
-                            padding: const EdgeInsets.only(left: 5, right: 5),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: const Color.fromARGB(255, 7, 125, 180),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                hint: const Text(
-                                  'Please select a payment type',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                ), // Not necessary for Option 1
-                                value: _selectedPaymentType,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _selectedPaymentType = newValue.toString();
-                                    _selectedPaymentType == 'Paid'
-                                        ? paymentType = 'paid'
-                                        : _selectedPaymentType == 'Received'
-                                        ? paymentType = "received"
-                                        : _selectedPaymentType == 'All'
-                                        ? paymentType = ""
-                                        : paymentType = "";
-                                    print("Payment Type: $paymentType");
-                                  });
-                                },
-                                items: _category.map((location) {
-                                  return DropdownMenuItem(
-                                    child: Text(
-                                      location,
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                      ),
+                              items: _category.map((location) {
+                                return DropdownMenuItem(
+                                  child: Text(
+                                    location,
+                                    style: const TextStyle(
+                                      fontSize: 13,
                                     ),
-                                    value: location,
-                                  );
-                                }).toList(),
-                              ),
+                                  ),
+                                  value: location,
+                                );
+                              }).toList(),
                             ),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                   SizedBox(
                     height: 40,

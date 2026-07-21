@@ -5,6 +5,7 @@ import 'package:kbtradlink/custom/custom_appbar.dart';
 import 'package:kbtradlink/provider/bank_account_provider.dart';
 import 'package:kbtradlink/provider/bank_ledger_provider.dart';
 import 'package:kbtradlink/screen/acount_module/model/bank_account_model.dart';
+import 'package:kbtradlink/utils/all_textstyle.dart';
 import 'package:kbtradlink/utils/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -93,10 +94,8 @@ class _BankLedgerState extends State<BankLedger> {
           Container(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              height: 150.0,
               width: double.infinity,
-              // margin: const EdgeInsets.only(bottom: 10),
-              padding: const EdgeInsets.only(top: 4.0, left: 4.0, right: 4.0),
+              padding: const EdgeInsets.only(top: 4.0, left: 4.0, right: 4.0,bottom: 4.0),
               decoration: BoxDecoration(
                 color: Colors.lightGreen.shade100,
                 borderRadius: BorderRadius.circular(15.0),
@@ -108,8 +107,7 @@ class _BankLedgerState extends State<BankLedger> {
                     color: Colors.grey.withOpacity(0.6),
                     spreadRadius: 2,
                     blurRadius: 5,
-                    offset: const Offset(
-                        0, 3), // changes the position of the shadow
+                    offset: const Offset(0, 3), 
                   ),
                 ],
               ),
@@ -117,16 +115,10 @@ class _BankLedgerState extends State<BankLedger> {
                 children: [
                   Row(
                     children: [
-                      const Expanded(
-                        flex: 4,
-                        child: Text(
-                          "Account      :",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 126, 125, 125)),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 11,
+                     Expanded(flex: 4,child: Text("Account",style: AllTextStyle.dateFormatStyle)),
+                     Expanded(flex: 1,child: Text(":",style: AllTextStyle.dateFormatStyle)),
+                     Expanded(
+                        flex: 12,
                         child: Container(
                           height: 30.0,
                           width: MediaQuery.of(context).size.width / 2,
@@ -150,13 +142,14 @@ class _BankLedgerState extends State<BankLedger> {
                                           _selectedAccount = '';
                                         }
                                       },
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                      ),
+                                      style: AllTextStyle.dateFormatStyle,
                                       controller: accountController,
                                       decoration: InputDecoration(
-                                        contentPadding: const EdgeInsets.only(bottom: 12),
+                                        border: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
+                                        contentPadding: const EdgeInsets.only(bottom: 11),
                                         hintText: 'Select Account',
+                                        hintStyle: AllTextStyle.dateFormatStyle,
                                         suffix: _selectedAccount == '' ? null : GestureDetector(
                                           onTap: () {
                                             setState(() {
@@ -164,8 +157,8 @@ class _BankLedgerState extends State<BankLedger> {
                                             });
                                           },
                                           child: const Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 3),
-                                            child: Icon(Icons.close,size: 14,),
+                                            padding: EdgeInsets.symmetric(horizontal: 8),
+                                            child: Icon(Icons.close,size: 14),
                                           ),
                                         ),
                                       )
@@ -216,16 +209,10 @@ class _BankLedgerState extends State<BankLedger> {
                   const SizedBox(height: 4.0),
                   Row(
                     children: [
-                      const Expanded(
-                        flex: 4,
-                        child: Text(
-                          "Date From :",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 126, 125, 125)),
-                        ),
-                      ),
+                      Expanded(flex: 4,child: Text("Date From",style: AllTextStyle.dateFormatStyle)),
+                      Expanded(flex: 1,child: Text(":",style: AllTextStyle.dateFormatStyle)),
                       Expanded(
-                        flex: 11,
+                        flex: 12,
                         child: Container(
                           height: 30,
                           decoration: BoxDecoration(
@@ -276,16 +263,10 @@ class _BankLedgerState extends State<BankLedger> {
                   const SizedBox(height: 4.0),
                   Row(
                     children: [
-                      const Expanded(
-                        flex: 4,
-                        child: Text(
-                          "Date To     :",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 126, 125, 125)),
-                        ),
-                      ),
+                      Expanded(flex: 4,child: Text("Date To",style: AllTextStyle.dateFormatStyle)),
+                      Expanded(flex: 1,child: Text(":",style: AllTextStyle.dateFormatStyle)),
                       Expanded(
-                        flex: 11,
+                        flex: 12,
                         child: Container(
                           height: 30,
                           decoration: BoxDecoration(
@@ -303,8 +284,7 @@ class _BankLedgerState extends State<BankLedger> {
                             child: TextFormField(
                               enabled: false,
                               decoration: InputDecoration(
-                                contentPadding:
-                                const EdgeInsets.only(top: 2, left: 5),
+                                contentPadding:const EdgeInsets.only(top: 2, left: 5),
                                 suffixIcon: const Padding(
                                   padding: EdgeInsets.only(left: 20.0),
                                   child: Icon(Icons.calendar_month,color: Colors.black87,size: 16),
@@ -490,24 +470,14 @@ class _BankLedgerState extends State<BankLedger> {
                       Text("Total Withdrew Balance: $allWithdrawBalance",style: const TextStyle(
                         fontSize: 14, fontWeight: FontWeight.bold
                       ),),
-                      Text("Total Deposit Balance: $allDipositBalance",style: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.bold
-                      ),),
+                      Text("Total Deposit Balance: $allDipositBalance",style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold
+                      )),
                     ],
                   ),
                 )
               ],
             ),
-          )
-              : const Align(
-              alignment: Alignment.center,
-              child: Center(
-                child: Text(
-                  "No Data Found",
-                  style: TextStyle(fontSize: 16, color: Colors.red),
-                ),
-              ),
-          )
+          ): Align(alignment: Alignment.center,child: Center(child: Text("No Data Found",style: AllTextStyle.nofoundTextStyle)))
         ],
       ),
     );

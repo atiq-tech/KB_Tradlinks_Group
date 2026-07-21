@@ -158,7 +158,9 @@ class _ProductEntryState extends State<ProductEntry> {
                                   ),
                                   controller: categoryController,
                                   decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.only(bottom: 12),
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    contentPadding: const EdgeInsets.only(bottom: 11),
                                     hintText: 'Select Category',
                                     suffix: _selectedCategory == '' ? null : GestureDetector(
                                       onTap: () {
@@ -167,8 +169,8 @@ class _ProductEntryState extends State<ProductEntry> {
                                         });
                                       },
                                       child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 5),
-                                        child: Icon(Icons.close,size: 14,),
+                                        padding: EdgeInsets.symmetric(horizontal: 8),
+                                        child: Icon(Icons.close,size: 14),
                                       ),
                                     ),
                                   )
@@ -299,7 +301,9 @@ class _ProductEntryState extends State<ProductEntry> {
                                       ),
                                       controller: _unitController,
                                       decoration: InputDecoration(
-                                        contentPadding: const EdgeInsets.only(bottom: 12),
+                                        border: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
+                                        contentPadding: const EdgeInsets.only(bottom: 11),
                                         hintText: 'Select Unit',
                                         suffix: _selectedUnit == '' ? null : GestureDetector(
                                           onTap: () {
@@ -308,7 +312,7 @@ class _ProductEntryState extends State<ProductEntry> {
                                             });
                                           },
                                           child: const Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 5),
+                                            padding: EdgeInsets.symmetric(horizontal: 8),
                                             child: Icon(Icons.close,size: 14),
                                           ),
                                         ),

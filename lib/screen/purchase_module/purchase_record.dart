@@ -544,9 +544,9 @@ class _PurchaseRecordState extends State<PurchaseRecord> {
                                               ),
                                               controller: supplyerController,
                                               decoration: InputDecoration(
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        bottom: 12),
+                                                border: InputBorder.none,
+                                                enabledBorder: InputBorder.none,
+                                                contentPadding: const EdgeInsets.only(bottom: 11),
                                                 hintText: 'Select Supplier',
                                                 suffix:
                                                     _selectedQuantitySupplierTypes ==
@@ -663,9 +663,9 @@ class _PurchaseRecordState extends State<PurchaseRecord> {
                                               ),
                                               controller: productAllController,
                                               decoration: InputDecoration(
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        bottom: 12),
+                                                border: InputBorder.none,
+                                                enabledBorder: InputBorder.none,
+                                                contentPadding: const EdgeInsets.only(bottom: 11),
                                                 hintText: 'Select Product',
                                                 suffix:
                                                     _selectedQuantityProductTypes ==

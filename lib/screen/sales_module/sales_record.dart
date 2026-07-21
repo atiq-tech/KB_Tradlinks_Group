@@ -399,17 +399,20 @@ class _SalesRecordState extends State<SalesRecord> {
                                   ),
                                   controller: customerController,
                                   decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
                                     contentPadding: const EdgeInsets.only(bottom: 12),
+                                    suffixIconConstraints: const BoxConstraints(maxHeight: 30),
                                     hintText: 'Select Customer',
-                                    suffix: _selectedCustomer == '' ? null : GestureDetector(
+                                    suffixIcon: _selectedCustomer == '' ? null : GestureDetector(
                                       onTap: () {
                                         setState(() {
                                           customerController.text = '';
                                         });
                                       },
                                       child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 3),
-                                        child: Icon(Icons.close,size: 14,),
+                                        padding: EdgeInsets.symmetric(horizontal: 9),
+                                        child: Icon(Icons.close,size: 16),
                                       ),
                                     ),
                                   ),
@@ -558,16 +561,22 @@ class _SalesRecordState extends State<SalesRecord> {
                                   ),
                                   controller: employeeController,
                                   decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    suffixIconConstraints: const BoxConstraints(maxHeight: 30),
                                     isDense: true,
                                     hintText: 'Select Employee',
                                     hintStyle: const TextStyle(fontSize: 13.0),
-                                    suffix: _selectedEmployee == '' ? null : GestureDetector(
+                                    suffixIcon: _selectedEmployee == '' ? null : GestureDetector(
                                       onTap: () {
                                         setState(() {
                                           employeeController.text = '';
                                         });
                                       },
-                                      child: const Icon(Icons.close,size: 14,),
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 5),
+                                        child: Icon(Icons.close,size: 16),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -723,18 +732,22 @@ class _SalesRecordState extends State<SalesRecord> {
                                     ),
                                     controller: categoryController,
                                     decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                      contentPadding: const EdgeInsets.only(top: 5),
                                       hintText: 'Select Category',
                                       isDense: true,
                                       hintStyle: const TextStyle(fontSize: 13),
-                                      suffix: _selectedCategory == '' ? null : GestureDetector(
+                                      suffixIcon: _selectedCategory == '' ? null : GestureDetector(
                                         onTap: () {
                                           setState(() {
                                             categoryController.text = '';
                                           });
                                         },
                                         child: const Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 3),
-                                          child: Icon(Icons.close,size: 14,),
+                                          padding: EdgeInsets.symmetric(horizontal: 4),
+                                          child: Icon(Icons.close,size: 16),
                                         ),
                                       ),
                                     )
@@ -761,19 +774,13 @@ class _SalesRecordState extends State<SalesRecord> {
                                   )
                                   );
                                 },
-                                transitionBuilder:
-                                    (context, suggestionsBox, controller) {
+                                transitionBuilder:(context, suggestionsBox, controller) {
                                   return suggestionsBox;
                                 },
-                                onSuggestionSelected:
-                                    (CategoryModel suggestion) {
-                                  categoryController.text = "${suggestion.productCategoryName}";
+                                onSuggestionSelected:(CategoryModel suggestion) {
+                                  categoryController.text = suggestion.productCategoryName;
                                   setState(() {
                                     _selectedCategory = suggestion.productCategorySlNo.toString();
-                                    //categoryId = suggestion.productCategorySlNo;
-                                    // Provider.of<AllProductProvider>(context,
-                                    //     listen: false)
-                                    //     .getAllProduct(isService: "false",categoryId:  categoryId, branchId: "");
                                   });
                                 },
                                 onSaved: (value) {},
@@ -785,8 +792,7 @@ class _SalesRecordState extends State<SalesRecord> {
                     ],
                   )
                       : Container(),
-                  isProductWiseClicked == true
-                      ? Row(
+                  isProductWiseClicked == true ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Expanded(
@@ -828,10 +834,14 @@ class _SalesRecordState extends State<SalesRecord> {
                                     ),
                                     controller: productController,
                                     decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                      contentPadding: const EdgeInsets.only(top: 5),
                                       isDense: true,
                                       hintText: 'Select Product',
                                       hintStyle: const TextStyle(fontSize: 13),
-                                      suffix: _selectedProduct == '' ? null : GestureDetector(
+                                      suffixIcon: _selectedProduct == '' ? null : GestureDetector(
                                         onTap: () {
                                           setState(() {
                                             productController.text = '';
@@ -839,7 +849,7 @@ class _SalesRecordState extends State<SalesRecord> {
                                         },
                                         child: const Padding(
                                           padding: EdgeInsets.symmetric(horizontal: 3),
-                                          child: Icon(Icons.close,size: 14,),
+                                          child: Icon(Icons.close,size: 16),
                                         ),
                                       ),
                                     )
@@ -868,12 +878,10 @@ class _SalesRecordState extends State<SalesRecord> {
                                     ),
                                   );
                                 },
-                                transitionBuilder:
-                                    (context, suggestionsBox, controller) {
+                                transitionBuilder:(context, suggestionsBox, controller) {
                                   return suggestionsBox;
                                 },
-                                onSuggestionSelected:
-                                    (ProductModel suggestion) {
+                                onSuggestionSelected:(ProductModel suggestion) {
                                   productController.text = suggestion.displayText;
                                   setState(() {
                                     _selectedProduct = suggestion.productSlNo;
@@ -889,39 +897,6 @@ class _SalesRecordState extends State<SalesRecord> {
                                     print("dfhsghdfkhgkh $results");
 
                                     results.forEach((element) async {
-                                      // element.add(element.first);
-                                      // cproductId = element[0].productSlNo;
-                                      // print(
-                                      //     "productSlNo===> ${element[0].productSlNo}");
-                                      // ccategoryName =
-                                      //     element[0].productCategoryName;
-                                      // print(
-                                      //     "productCategoryName===> ${element[0].productCategoryName}");
-                                      // cname = element[0].productName;
-                                      // print(
-                                      //     "productName===> ${element[0].productName}");
-                                      // print(
-                                      //     "productSellingPrice===> ${element[0].productSellingPrice}");
-                                      // cvat = element[0].vat;
-                                      // print("vat===> ${element[0].vat}");
-                                      // print(
-                                      //     "_quantityController ===> ${_quantityController.text}");
-                                      // print(
-                                      //     "_quantityController ===> ${_quantityController.text}");
-                                      // cpurchaseRate =
-                                      //     element[0].productPurchaseRate;
-                                      // print(
-                                      //     "productPurchaseRate===> ${element[0].productPurchaseRate}");
-                                      // _VatController.text = element[0].vat;
-                                      // _salesRateController.text =
-                                      //     element[0].productSellingPrice;
-                                      // setState(() {
-                                      //   Total = (double.parse(
-                                      //       _quantityController.text) *
-                                      //       double.parse(
-                                      //           _salesRateController.text));
-                                      // });
-                                      // totalStack(cproductId);
                                     });
                                   });
                                 },
@@ -978,31 +953,6 @@ class _SalesRecordState extends State<SalesRecord> {
                                     setState(() {
                                       _selectedUserTypes =
                                           newValue.toString();
-                                      // userFullName =
-                                      // "$_selectedUserTypes";
-                                      //
-                                      // print(
-                                      //     "Usser sNo==============> $newValue");
-                                      // print(
-                                      //     "Usser sNo=====_selectedUserTypes=========> $userFullName");
-                                      // final results = [
-                                      //   FetchUserBySummaryProductlist.where(
-                                      //           (m) => m.userSlNo!.contains(
-                                      //           '$newValue')) // or Testing 123
-                                      //       .toList(),
-                                      // ];
-                                      // results.forEach((element) async {
-                                      //   element.add(element.first);
-                                      //   print(
-                                      //       "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
-                                      //   byUserId = "${element[0].userSlNo}";
-                                      //   print(
-                                      //       "byUserId=========> ${element[0].userSlNo}");
-                                      //   byUserFullname =
-                                      //   "${element[0].fullName}";
-                                      //   print(
-                                      //       "byUserFullname===> ${element[0].fullName}");
-                                      // });
                                     });
                                   },
                                   items: items.map(

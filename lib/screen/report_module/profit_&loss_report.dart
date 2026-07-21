@@ -300,6 +300,8 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                         ),
                                         controller: _customerController,
                                         decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
                                           contentPadding:
                                               const EdgeInsets.only(bottom: 12),
                                           hintText: 'Select Customer',
@@ -315,7 +317,7 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                                   child: const Padding(
                                                     padding:
                                                         EdgeInsets.symmetric(
-                                                            horizontal: 3),
+                                                            horizontal: 8),
                                                     child: Icon(
                                                       Icons.close,
                                                       size: 14,
@@ -416,6 +418,8 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                                       TextOverflow.ellipsis),
                                               controller: _productController,
                                               decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                enabledBorder: InputBorder.none,
                                                 isDense: true,
                                                 hintText: 'Select Product',
                                                 hintStyle: const TextStyle(
@@ -433,7 +437,7 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                                           padding: EdgeInsets
                                                               .symmetric(
                                                                   horizontal:
-                                                                      3),
+                                                                      8),
                                                           child: Icon(
                                                             Icons.close,
                                                             size: 14,
@@ -961,7 +965,7 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               Row(
@@ -983,7 +987,7 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               Row(
@@ -1005,7 +1009,7 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               Row(
@@ -1054,7 +1058,7 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                                               ),
                                                               Text(
                                                                 "${allOtherIncomeExpenseData?.income}",
-                                                                style: TextStyle(
+                                                                style: const TextStyle(
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -1079,7 +1083,7 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                                                   ),
                                                                   Text(
                                                                       "${allOtherIncomeExpenseData?.returnedAmount}",
-                                                                      style: TextStyle(
+                                                                      style: const TextStyle(
                                                                           fontWeight: FontWeight
                                                                               .w500,
                                                                           color: Colors
@@ -1100,7 +1104,7 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                                                       ),
                                                                       Text(
                                                                           "${allOtherIncomeExpenseData?.damagedAmount}",
-                                                                          style: TextStyle(
+                                                                          style: const TextStyle(
                                                                               fontWeight: FontWeight.w500,
                                                                               color: Colors.black87,
                                                                               fontSize: 13.0)),
@@ -1128,7 +1132,7 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                                                           ),
                                                                           Text(
                                                                             "${allOtherIncomeExpenseData?.employeePayment}",
-                                                                            style: TextStyle(
+                                                                            style: const TextStyle(
                                                                                 fontWeight: FontWeight.w500,
                                                                                 color: Colors.black87,
                                                                                 fontSize: 13.0),
@@ -1410,15 +1414,7 @@ class _ProfitLossReportPageState extends State<ProfitLossReportPage> {
                                   ),
                                 ),
                               )
-                            : Align(
-                                alignment: Alignment.center,
-                                child: Center(
-                                  child: Text(
-                                    "No Data Found",
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.red),
-                                  ),
-                                ))
+                            : const Align(alignment: Alignment.center,child: Center(child: Text("No Data Found",style: TextStyle(fontSize: 16, color: Colors.red))))
                     : Container()
           ],
         ),

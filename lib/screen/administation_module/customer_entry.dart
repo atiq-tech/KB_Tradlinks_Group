@@ -336,7 +336,9 @@ class _CustomerEntryPageState extends State<CustomerEntryPage> {
                                   ),
                                   controller: areaController,
                                   decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.only(bottom: 12),
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    contentPadding: const EdgeInsets.only(bottom: 11),
                                     hintText: 'Select District',
                                     suffix: _selectedArea == '' ? null : GestureDetector(
                                       onTap: () {
@@ -345,8 +347,8 @@ class _CustomerEntryPageState extends State<CustomerEntryPage> {
                                         });
                                       },
                                       child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 3),
-                                        child: Icon(Icons.close,size: 14,),
+                                        padding: EdgeInsets.symmetric(horizontal: 8),
+                                        child: Icon(Icons.close,size: 14),
                                       ),
                                     ),
                                   )

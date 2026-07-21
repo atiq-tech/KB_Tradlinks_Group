@@ -16,7 +16,7 @@ import 'package:kbtradlink/screen/acount_module/supplier_payment.dart';
 import 'package:kbtradlink/screen/administation_module/product_entry.dart';
 import 'package:kbtradlink/screen/administation_module/product_ledger.dart';
 import 'package:kbtradlink/screen/administation_module/supplier_entry.dart';
-import 'package:kbtradlink/screen/auth/login_screen.dart';
+import 'package:kbtradlink/auth/login_screen.dart';
 import 'package:kbtradlink/screen/purchase_module/purchase_record.dart';
 import 'package:kbtradlink/screen/purchase_module/reorder_list.dart';
 import 'package:kbtradlink/screen/report_module/balance_report.dart';

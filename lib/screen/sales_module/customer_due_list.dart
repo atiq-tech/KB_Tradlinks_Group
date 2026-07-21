@@ -246,9 +246,13 @@ class _CustomerDueListState extends State<CustomerDueList> {
                                       ),
                                       controller: customerController,
                                       decoration: InputDecoration(
-                                        contentPadding: const EdgeInsets.only(bottom: 12),
+                                        border: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
+                                        isDense: true,
+                                        suffixIconConstraints: const BoxConstraints(maxHeight: 30),
                                         hintText: 'Select Customer',
-                                        suffix: _selectedCustomer == '' ? null : GestureDetector(
+                                        suffixIcon: _selectedCustomer == '' || _selectedCustomer == 'null' || _selectedCustomer == null ? null
+                                         : GestureDetector(
                                           onTap: () {
                                             setState(() {
                                               customerController.text = '';
@@ -256,8 +260,8 @@ class _CustomerDueListState extends State<CustomerDueList> {
                                             });
                                           },
                                           child: const Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 3),
-                                            child: Icon(Icons.close,size: 14,),
+                                            padding: EdgeInsets.symmetric(horizontal: 5),
+                                            child: Icon(Icons.close,size: 16),
                                           ),
                                         ),
                                       ),
@@ -271,7 +275,6 @@ class _CustomerDueListState extends State<CustomerDueList> {
                                           .toLowerCase()))
                                           .take(allCustomersData.length)
                                           .toList();
-                                      // return placesSearchResult.where((element) => element.name.toLowerCase().contains(pattern.toString().toLowerCase())).take(10).toList();
                                     },
                                     itemBuilder: (context, suggestion) {
                                       return SizedBox(
@@ -280,19 +283,14 @@ class _CustomerDueListState extends State<CustomerDueList> {
                                           child: Text(
                                             "${suggestion.customerCode} - ${suggestion.customerName} - - ${suggestion.customerAddress}",
                                             style: const TextStyle(fontSize: 12),
-                                            maxLines: 1,overflow: TextOverflow.ellipsis,),
+                                            maxLines: 1,overflow: TextOverflow.ellipsis),
                                         ),
                                       );
-                                      //   ListTile(
-                                      //   title: SizedBox(child: Text("${suggestion.displayName}",style: const TextStyle(fontSize: 12), maxLines: 1,overflow: TextOverflow.ellipsis,)),
-                                      // );
                                     },
-                                    transitionBuilder:
-                                        (context, suggestionsBox, controller) {
+                                    transitionBuilder:(context, suggestionsBox, controller) {
                                       return suggestionsBox;
                                     },
-                                    onSuggestionSelected:
-                                        (CustomerModel suggestion) {
+                                    onSuggestionSelected:(CustomerModel suggestion) {
                                       customerController.text = suggestion.displayName!;
                                       setState(() {
                                         _selectedCustomer = "${suggestion.customerSlNo}";

@@ -8,7 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:kbtradlink/screen/auth/login_screen.dart';
+import 'package:kbtradlink/auth/login_screen.dart';
 import 'package:kbtradlink/screen/home_screen.dart';
 
 class AnimatedSplashScreen extends StatefulWidget {

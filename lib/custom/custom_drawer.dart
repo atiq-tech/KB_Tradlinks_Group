@@ -13,7 +13,7 @@ import 'package:kbtradlink/screen/administation_module/customer_entry.dart';
 import 'package:kbtradlink/screen/administation_module/product_entry.dart';
 import 'package:kbtradlink/screen/administation_module/product_ledger.dart';
 import 'package:kbtradlink/screen/administation_module/supplier_entry.dart';
-import 'package:kbtradlink/screen/auth/login_screen.dart';
+import 'package:kbtradlink/auth/login_screen.dart';
 import 'package:kbtradlink/screen/home_screen.dart';
 import 'package:kbtradlink/screen/purchase_module/purchase_entry.dart';
 import 'package:kbtradlink/screen/purchase_module/purchase_record.dart';

@@ -197,25 +197,23 @@ class _CustomerPaymentReportState extends State<CustomerPaymentReport> {
                             ),
                             controller: customerController,
                             decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.only(bottom: 12),
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              isDense: true,
+                              suffixIconConstraints: const BoxConstraints(maxHeight: 30),
                               hintText: 'Select Customer',
-                              suffix: _selectedCustomer == ''
-                                  ? null
-                                  : GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          customerController.text = '';
-                                        });
-                                      },
-                                      child: const Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(horizontal: 3),
-                                        child: Icon(
-                                          Icons.close,
-                                          size: 14,
-                                        ),
-                                      ),
-                                    ),
+                              suffixIcon: _selectedCustomer == '' || _selectedCustomer == 'null' || _selectedCustomer == null ? null
+                                : GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      customerController.text = '';
+                                    });
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 5),
+                                    child: Icon(Icons.close,size: 16),
+                                  ),
+                                ),
                             ),
                           ),
                           suggestionsCallback: (pattern) {

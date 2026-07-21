@@ -50,7 +50,7 @@ class _BalanceReportState extends State<BalanceReport> {
   @override
   Widget build(BuildContext context) {
     final allBalanceReportData = Provider.of<BalanceReportProvider>(context).balanceReportModel;
-    final allBankBalance = allBalanceReportData?.bankAccounts.fold(0.0, (p, e) => p+double.parse("${e.balance}"));
+    final allBankBalance = allBalanceReportData?.bankAccounts.fold(0.0, (p, e) => p+double.parse(e.balance));
 
     return Scaffold(
         appBar: const CustomAppBar(title: "Balance Report"),
@@ -73,8 +73,7 @@ class _BalanceReportState extends State<BalanceReport> {
                       color: Colors.grey.withOpacity(0.6),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset: const Offset(
-                          0, 3), // changes the position of the shadow
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
@@ -139,7 +138,7 @@ class _BalanceReportState extends State<BalanceReport> {
                             setState(() {
                               BalanceReportProvider().on();
                             });
-                            Provider.of<BalanceReportProvider>(context,listen: false).getBalanceReport("${backEndFirstDate}");
+                            Provider.of<BalanceReportProvider>(context,listen: false).getBalanceReport("$backEndFirstDate");
                           },
                           child: Container(
                             height: 30.0,
@@ -152,8 +151,7 @@ class _BalanceReportState extends State<BalanceReport> {
                                   color: Colors.grey.withOpacity(0.6),
                                   spreadRadius: 2,
                                   blurRadius: 5,
-                                  offset: const Offset(
-                                      0, 3), // changes the position of the shadow
+                                  offset: const Offset(0, 3),
                                 ),
                               ],
                             ),
@@ -173,8 +171,7 @@ class _BalanceReportState extends State<BalanceReport> {
                 ),
               ),
             ),
-            const SizedBox(height: 5.0,),
-
+            const SizedBox(height: 5.0),
             BalanceReportProvider.isLoading
                 ? const Center(child: CircularProgressIndicator(),)
                 : allBalanceReportData == null
@@ -185,14 +182,14 @@ class _BalanceReportState extends State<BalanceReport> {
                 Container(
                   color: Colors.blueGrey.shade50,
                   child: const Center(
-                      child: Text(
-                        "Asset",
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w600,
-                          color: Color.fromARGB(255, 15, 101, 199),
-                        ),
-                      )),
+                    child: Text(
+                      "Asset",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromARGB(255, 15, 101, 199),
+                      ),
+                    )),
                 ),
                 Container(
                   // color: Colors.blueGrey.shade100,

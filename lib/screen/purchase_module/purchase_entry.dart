@@ -250,8 +250,9 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                     ),
                                     controller: supplyerController,
                                     decoration: InputDecoration(
-                                      contentPadding:
-                                          const EdgeInsets.only(bottom: 12),
+                                      border: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      contentPadding: const EdgeInsets.only(bottom: 11),
                                       hintText: 'Select Supplier',
                                       suffix: _selectedSupplier == ''
                                           ? null
@@ -259,11 +260,14 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                               onTap: () {
                                                 setState(() {
                                                   supplyerController.text = '';
+                                                  _nameController.text = '';
+                                                  _mobileNumberController.text = '';
+                                                  _addressController.text = '';
                                                 });
                                               },
                                               child: const Padding(
                                                 padding: EdgeInsets.symmetric(
-                                                    horizontal: 3),
+                                                    horizontal: 8),
                                                 child: Icon(
                                                   Icons.close,
                                                   size: 14,
@@ -412,8 +416,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                 },
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.only(
-                                      bottom: 8, left: 5),
+                                  contentPadding: EdgeInsets.only(bottom: isVisible == true ? 8 : 18, left: 5),
                                   border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
@@ -457,8 +460,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                 },
                                 enabled: isEnabled,
                                 decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.only(
-                                      bottom: 8, left: 5),
+                                  contentPadding: EdgeInsets.only(bottom: isVisible == true ? 8 : 18, left: 5),
 
                                   border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
@@ -551,7 +553,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                               },
                                               child: const Padding(
                                                 padding: EdgeInsets.symmetric(
-                                                    horizontal: 3),
+                                                    horizontal: 5),
                                                 child: Icon(
                                                   Icons.close,
                                                   size: 14,
@@ -628,7 +630,9 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                     style: const TextStyle(fontSize: 13),
                                     controller: categoryController,
                                     decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.only(bottom: 12),
+                                      border: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      contentPadding: const EdgeInsets.only(bottom: 11),
                                       hintText: 'Select Category',
                                       suffix: categoryId == '' ? null
                                           : GestureDetector(
@@ -638,7 +642,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                                 });
                                               },
                                               child: const Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 3),
+                                                padding: EdgeInsets.symmetric(horizontal: 5),
                                                 child: Icon(Icons.close,size: 14),
                                               ),
                                             ),
@@ -740,8 +744,9 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                     ),
                                     controller: productController,
                                     decoration: InputDecoration(
-                                      contentPadding:
-                                          const EdgeInsets.only(bottom: 12),
+                                      border: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      contentPadding: const EdgeInsets.only(bottom: 11),
                                       hintText: 'Select Product',
                                       suffix: _selectedProduct == ''
                                           ? null
@@ -753,7 +758,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                               },
                                               child: const Padding(
                                                 padding: EdgeInsets.symmetric(
-                                                    horizontal: 3),
+                                                    horizontal: 5),
                                                 child: Icon(
                                                   Icons.close,
                                                   size: 14,
@@ -964,7 +969,7 @@ class _PurchaseEntryPageState extends State<PurchaseEntryPage> {
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.only(
-                                      bottom: 15, left: 5),
+                                      bottom: 8, left: 5),
                                   filled: true,
                                   hintText: "0",
                                   fillColor: Colors.white,

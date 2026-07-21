@@ -254,9 +254,9 @@ class _CashTransactionReportPageState extends State<CashTransactionReportPage> {
                                           ),
                                           controller: accountController,
                                           decoration: InputDecoration(
-                                            contentPadding:
-                                                const EdgeInsets.only(
-                                                    bottom: 12),
+                                            border: InputBorder.none,
+                                            enabledBorder: InputBorder.none,
+                                            contentPadding: const EdgeInsets.only(bottom: 12),
                                             hintText: 'Select Account',
                                             suffix: _selectedAccount == ''
                                                 ? null
@@ -271,10 +271,10 @@ class _CashTransactionReportPageState extends State<CashTransactionReportPage> {
                                                     child: const Padding(
                                                       padding:
                                                           EdgeInsets.symmetric(
-                                                              horizontal: 3),
+                                                              horizontal: 8),
                                                       child: Icon(
                                                         Icons.close,
-                                                        size: 14,
+                                                        size: 14
                                                       ),
                                                     ),
                                                   ),

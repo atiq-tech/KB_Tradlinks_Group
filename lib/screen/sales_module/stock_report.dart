@@ -275,18 +275,23 @@ class _StockReportState extends State<StockReport> {
                                   ),
                                   controller: categoryController,
                                   decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
                                     hintText: 'Select Category',
                                     isDense: true,
                                     hintStyle: const TextStyle(fontSize: 13),
-                                    suffix: categoryId == '' ? null : GestureDetector(
+                                    suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                    contentPadding: const EdgeInsets.only(top:6),
+                                    suffixIcon: categoryId == '' || categoryId == 'null' ? null
+                                     : GestureDetector(
                                       onTap: () {
                                         setState(() {
                                           categoryController.text = '';
                                         });
                                       },
                                       child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 3),
-                                        child: Icon(Icons.close,size: 14,),
+                                        padding: EdgeInsets.symmetric(horizontal: 5),
+                                        child: Icon(Icons.close,size: 16),
                                       ),
                                     ),
                                   )
@@ -377,18 +382,22 @@ class _StockReportState extends State<StockReport> {
                                       ),
                                       controller: productController,
                                       decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
                                         isDense: true,
                                         hintText: 'Select Product',
                                         hintStyle: const TextStyle(fontSize: 13),
-                                        suffix: _selectedProduct == '' ? null : GestureDetector(
+                                        suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                        contentPadding: const EdgeInsets.only(top: 5),
+                                        suffixIcon: _selectedProduct == '' ? null : GestureDetector(
                                           onTap: () {
                                             setState(() {
                                               productController.text = '';
                                             });
                                           },
                                           child: const Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 3),
-                                            child: Icon(Icons.close,size: 14,),
+                                            padding: EdgeInsets.symmetric(horizontal: 5),
+                                            child: Icon(Icons.close,size: 16),
                                           ),
                                         ),
                                       )
@@ -479,18 +488,21 @@ class _StockReportState extends State<StockReport> {
                                   ),
                                   controller: branchController,
                                   decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
                                     hintText: 'Select Warehouse',
                                     isDense: true,
                                     hintStyle: const TextStyle(fontSize: 13),
-                                    suffix: branchId == '' ? null : GestureDetector(
+                                    suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                    suffixIcon: branchId == '' ? null : GestureDetector(
                                       onTap: () {
                                         setState(() {
                                           branchController.text = '';
                                         });
                                       },
                                       child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 3),
-                                        child: Icon(Icons.close,size: 14,),
+                                        padding: EdgeInsets.symmetric(horizontal: 5),
+                                        child: Icon(Icons.close,size: 16),
                                       ),
                                     ),
                                   )

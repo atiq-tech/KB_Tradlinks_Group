@@ -339,7 +339,9 @@ class _SupplierPaymentPageState extends State<SupplierPaymentPage> {
                                           ),
                                           controller: accountController,
                                           decoration: InputDecoration(
-                                            contentPadding: const EdgeInsets.only(bottom: 12),
+                                            border: InputBorder.none,
+                                            enabledBorder: InputBorder.none,
+                                            contentPadding: const EdgeInsets.only(bottom: 11),
                                             hintText: 'Select Account',
                                             suffix: _selectedAccount == '' ? null : GestureDetector(
                                               onTap: () {
@@ -348,8 +350,8 @@ class _SupplierPaymentPageState extends State<SupplierPaymentPage> {
                                                 });
                                               },
                                               child: const Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 3),
-                                                child: Icon(Icons.close,size: 14,),
+                                                padding: EdgeInsets.symmetric(horizontal: 8),
+                                                child: Icon(Icons.close,size: 14),
                                               ),
                                             ),
                                           )
@@ -440,7 +442,9 @@ class _SupplierPaymentPageState extends State<SupplierPaymentPage> {
                                   ),
                                   controller: supplierController,
                                   decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.only(bottom: 12),
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    contentPadding: const EdgeInsets.only(bottom: 11),
                                     hintText: 'Select Supplier',
                                     suffix: _selectedSupplier == '' ? null : GestureDetector(
                                       onTap: () {
@@ -449,8 +453,8 @@ class _SupplierPaymentPageState extends State<SupplierPaymentPage> {
                                         });
                                       },
                                       child: const Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 3),
-                                        child: Icon(Icons.close,size: 14,),
+                                        padding: EdgeInsets.symmetric(horizontal: 8),
+                                        child: Icon(Icons.close,size: 14),
                                       ),
                                     ),
                                   )

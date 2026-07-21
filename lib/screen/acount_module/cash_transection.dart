@@ -363,6 +363,8 @@ class _CashTransactionPageState extends State<CashTransactionPage> {
                                         ),
                                         controller: _accountController,
                                         decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
                                           contentPadding: const EdgeInsets.only(bottom: 12),
                                           hintText: 'Select account',
                                           suffix: _selectedAccount == '' ? null : GestureDetector(
@@ -372,8 +374,8 @@ class _CashTransactionPageState extends State<CashTransactionPage> {
                                               });
                                             },
                                             child: const Padding(
-                                              padding: EdgeInsets.symmetric(horizontal: 5),
-                                              child: Icon(Icons.close,size: 14,),
+                                              padding: EdgeInsets.symmetric(horizontal: 8),
+                                              child: Icon(Icons.close,size: 14),
                                             ),
                                           ),
                                         )
