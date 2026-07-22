@@ -17,8 +17,8 @@ class BankLedger extends StatefulWidget {
 }
 class _BankLedgerState extends State<BankLedger> {
   String? firstPickedDate;
-  var backEndFirstDate;
-  var backEndSecondDate;
+  String? backEndFirstDate;
+  String? backEndSecondDate;
   var toDay = DateTime.now();
 
   void _firstSelectedDate() async {
@@ -66,7 +66,6 @@ class _BankLedgerState extends State<BankLedger> {
   }
 
   String? _selectedAccount;
-
   bool isLoading = false;
   @override
   void initState() {
@@ -75,17 +74,14 @@ class _BankLedgerState extends State<BankLedger> {
     backEndSecondDate = Utils.formatBackEndDate(DateTime.now());
     secondPickedDate = Utils.formatFrontEndDate(DateTime.now());
     Provider.of<BankLedgerProvider>(context,listen: false).bankLedgerModel = null;
-
-    // TODO: implement initState
     super.initState();
   }
   var accountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-
     final allBankLedgerData = Provider.of<BankLedgerProvider>(context).bankLedgerModel;
-    final allWithdrawBalance = allBankLedgerData?.transactions.fold(0.0, (p, e) => p+double.parse("${e.withdraw}"));
-    final allDipositBalance = allBankLedgerData?.transactions.fold(0.0, (p, e) => p+double.parse("${e.deposit}"));
+    final allWithdrawBalance = allBankLedgerData?.transactions.fold(0.0, (p, e) => p+double.parse(e.withdraw));
+    final allDipositBalance = allBankLedgerData?.transactions.fold(0.0, (p, e) => p+double.parse(e.deposit));
     print('jfsdkhf $allDipositBalance $allWithdrawBalance');
     return Scaffold(
       appBar: const CustomAppBar(title: "Bank Ledger"),
@@ -98,12 +94,14 @@ class _BankLedgerState extends State<BankLedger> {
               padding: const EdgeInsets.only(top: 4.0, left: 4.0, right: 4.0,bottom: 4.0),
               decoration: BoxDecoration(
                 color: Colors.lightGreen.shade100,
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(
                     color: const Color.fromARGB(255, 7, 125, 180),
+                    
                     width: 1.0),
                 boxShadow: [
                   BoxShadow(
+                    // ignore: deprecated_member_use
                     color: Colors.grey.withOpacity(0.6),
                     spreadRadius: 2,
                     blurRadius: 5,
@@ -123,20 +121,13 @@ class _BankLedgerState extends State<BankLedger> {
                           height: 30.0,
                           width: MediaQuery.of(context).size.width / 2,
                           padding: const EdgeInsets.only(left: 5.0),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: const Color.fromARGB(255, 5, 107, 155),
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
+                          decoration: ContDecoration.contDecoration,
                           child: FutureBuilder(
                             future: Provider.of<BankAccountProvider>(context).getBankAccountList(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return TypeAheadFormField(
-                                  textFieldConfiguration:
-                                  TextFieldConfiguration(
+                                  textFieldConfiguration:TextFieldConfiguration(
                                       onChanged: (value){
                                         if (value == '') {
                                           _selectedAccount = '';
@@ -147,10 +138,11 @@ class _BankLedgerState extends State<BankLedger> {
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         enabledBorder: InputBorder.none,
-                                        contentPadding: const EdgeInsets.only(bottom: 11),
+                                        contentPadding: const EdgeInsets.only(bottom: 12),
                                         hintText: 'Select Account',
                                         hintStyle: AllTextStyle.dateFormatStyle,
-                                        suffix: _selectedAccount == '' ? null : GestureDetector(
+                                        suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                        suffixIcon: _selectedAccount == '' ? null : GestureDetector(
                                           onTap: () {
                                             setState(() {
                                               accountController.text = '';
@@ -172,7 +164,6 @@ class _BankLedgerState extends State<BankLedger> {
                                         .toLowerCase()))
                                         .take(snapshot.data!.length)
                                         .toList();
-                                    // return placesSearchResult.where((element) => element.name.toLowerCase().contains(pattern.toString().toLowerCase())).take(10).toList();
                                   },
                                   itemBuilder: (context, suggestion) {
                                     return SizedBox(
@@ -215,14 +206,7 @@ class _BankLedgerState extends State<BankLedger> {
                         flex: 12,
                         child: Container(
                           height: 30,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: const Color.fromARGB(255, 7, 125, 180),
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
+                          decoration: ContDecoration.contDecoration,
                           child: GestureDetector(
                             onTap: (() {
                               _firstSelectedDate();
@@ -269,14 +253,7 @@ class _BankLedgerState extends State<BankLedger> {
                         flex: 12,
                         child: Container(
                           height: 30,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: const Color.fromARGB(255, 7, 125, 180),
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
+                          decoration: ContDecoration.contDecoration,
                           child: GestureDetector(
                             onTap: (() {
                               _secondSelectedDate();
@@ -310,14 +287,9 @@ class _BankLedgerState extends State<BankLedger> {
                     alignment: Alignment.bottomRight,
                     child: InkWell(
                       onTap: () {
-                        //final connectivityResult = await (Connectivity().checkConnectivity());
-
                         if (accountController.text == "") {
                           Utils.errorSnackBar(context, "Please Select Product");
                         } else {
-                          // if (connectivityResult ==
-                          //     ConnectivityResult.mobile ||
-                          //     connectivityResult == ConnectivityResult.wifi) {
                             setState(() {
                               BankLedgerProvider().on();
                             });
@@ -326,15 +298,10 @@ class _BankLedgerState extends State<BankLedger> {
                                 "$_selectedAccount",
                                 "$backEndFirstDate",
                                 "$backEndSecondDate");
-                          } 
-                        //   else {
-                        //     Utils.errorSnackBar(
-                        //         context, "Please connect with internet");
-                        //   }
-                        // }
+                          }
                       },
                       child: Container(
-                        height: 35.0,
+                        height: 32.0,
                         width: 75.0,
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 7, 125, 180),
@@ -344,19 +311,11 @@ class _BankLedgerState extends State<BankLedger> {
                               color: Colors.grey.withOpacity(0.6),
                               spreadRadius: 2,
                               blurRadius: 5,
-                              offset: const Offset(
-                                  0, 3), // changes the position of the shadow
+                              offset: const Offset(0, 3),
                             ),
                           ],
                         ),
-                        child: const Center(
-                            child: Text(
-                              "Show",
-                              style: TextStyle(
-                                  letterSpacing: 1.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            )),
+                        child: Center(child: Text("Show",style: AllTextStyle.saveButtonTextStyle)),
                       ),
                     ),
                   ),
@@ -365,11 +324,9 @@ class _BankLedgerState extends State<BankLedger> {
             ),
           ),
           const SizedBox(height: 2.0),
-          BankLedgerProvider.isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : allBankLedgerData != null
-              ? Expanded(
-            child: Column(
+          BankLedgerProvider.isLoading ? const Center(child: CircularProgressIndicator())
+            : allBankLedgerData != null ? Expanded(
+             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
@@ -381,100 +338,54 @@ class _BankLedgerState extends State<BankLedger> {
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: Container(
-                          // color: Colors.red,
-                          // padding:EdgeInsets.only(bottom: 16.0),
+                        child: SizedBox(
                           child: DataTable(
                             headingRowHeight: 20.0,
                             dataRowHeight: 20.0,
                             showCheckboxColumn: true,
-                            border: TableBorder.all(
-                                color: Colors.black54, width: 1),
+                            border: TableBorder.all(color: Colors.black54, width: 1),
                             columns: const [
-                              DataColumn(
-                                label: Expanded(
-                                    child: Center(child: Text('Transaction Date'))),
-                              ),
-                              DataColumn(
-                                label: Expanded(
-                                    child: Center(
-                                        child: Text('Description'))),
-                              ),
-                              DataColumn(
-                                label: Expanded(
-                                    child: Center(child: Text('Note'))),
-                              ),
-                              DataColumn(
-                                label: Expanded(
-                                    child: Center(
-                                        child: Text('Deposit'))),
-                              ),
-                              DataColumn(
-                                label: Expanded(
-                                    child: Center(
-                                        child: Text('Withdraw'))),
-                              ),
-                              DataColumn(
-                                label: Expanded(
-                                    child: Center(child: Text('Balance'))),
-                              ),
+                              DataColumn(label: Expanded(child: Center(child: Text('Transaction Date')))),
+                              DataColumn(label: Expanded(child: Center(child: Text('Description')))),
+                              DataColumn(label: Expanded(child: Center(child: Text('Note')))),
+                              DataColumn(label: Expanded(child: Center(child: Text('Deposit')))),
+                              DataColumn(label: Expanded(child: Center(child: Text('Withdraw')))),
+                              DataColumn(label: Expanded(child: Center(child: Text('Balance')))),
                             ],
-                            rows: List.generate(
-                              allBankLedgerData.transactions.length,
-                                  (int index) => DataRow(
+                            rows: [
+                              // Existing transaction rows
+                              ...List.generate(
+                                allBankLedgerData.transactions.length,
+                                (int index) => DataRow(
+                                  cells: <DataCell>[
+                                    DataCell(Center(child: Text(allBankLedgerData.transactions[index].transactionDate))),
+                                    DataCell(Center(child: Text(allBankLedgerData.transactions[index].description))),
+                                    DataCell(Center(child: Text(allBankLedgerData.transactions[index].note))),
+                                    DataCell(Center(child: Text(allBankLedgerData.transactions[index].deposit))),
+                                    DataCell(Center(child: Text(allBankLedgerData.transactions[index].withdraw))),
+                                    DataCell(Center(child: Text(allBankLedgerData.transactions[index].balance))),
+                                  ],
+                                ),
+                              ),
+                              // Summary row
+                              DataRow(
+                                color: WidgetStateProperty.all(Colors.grey.shade200),
                                 cells: <DataCell>[
-                                  DataCell(
-                                    Center(
-                                        child: Text(
-                                            '${allBankLedgerData.transactions[index].transactionDate}')),
-                                  ),
-                                  DataCell(
-                                    Center(
-                                        child: Text(
-                                            '${allBankLedgerData.transactions[index].description}')),
-                                  ),
-                                  DataCell(
-                                    Center(
-                                        child: Text(
-                                            "${allBankLedgerData.transactions[index].note}")),
-                                  ),
-                                  DataCell(
-                                    Center(
-                                        child: Text(
-                                            '${allBankLedgerData.transactions[index].deposit}')),
-                                  ),
-                                  DataCell(
-                                    Center(
-                                        child: Text(
-                                            '${allBankLedgerData.transactions[index].withdraw}')),
-                                  ),
-                                  DataCell(
-                                    Center(
-                                        child: Text(
-                                            '${allBankLedgerData.transactions[index].balance}')),
-                                  ),
+                                  const DataCell(SizedBox.shrink()),
+                                  const DataCell(SizedBox.shrink()),
+                                  const DataCell(Center(child: Text('Total:',style: TextStyle(fontWeight: FontWeight.bold)))),
+                                  DataCell(Center(child: Text("$allDipositBalance",style: const TextStyle(fontWeight: FontWeight.bold)))),
+                                  DataCell(Center(child: Text("$allWithdrawBalance",style: const TextStyle(fontWeight: FontWeight.bold)))),
+                                  const DataCell(SizedBox.shrink()),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Total Withdrew Balance: $allWithdrawBalance",style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.bold
-                      ),),
-                      Text("Total Deposit Balance: $allDipositBalance",style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold
-                      )),
-                    ],
-                  ),
-                )
               ],
             ),
           ): Align(alignment: Alignment.center,child: Center(child: Text("No Data Found",style: AllTextStyle.nofoundTextStyle)))
@@ -483,3 +394,65 @@ class _BankLedgerState extends State<BankLedger> {
     );
   }
 }
+
+
+
+// Expanded(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Expanded(
+//                   child: Container(
+//                     width: double.infinity,
+//                     height: double.infinity,
+//                     padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8),
+//                     child: SingleChildScrollView(
+//                       scrollDirection: Axis.vertical,
+//                       child: SingleChildScrollView(
+//                         scrollDirection: Axis.horizontal,
+//                         child: SizedBox(
+//                           child: DataTable(
+//                             headingRowHeight: 20.0,
+//                             dataRowHeight: 20.0,
+//                             showCheckboxColumn: true,
+//                             border: TableBorder.all(color: Colors.black54, width: 1),
+//                             columns: const [
+//                               DataColumn(label: Expanded(child: Center(child: Text('Transaction Date')))),
+//                               DataColumn(label: Expanded(child: Center(child: Text('Description')))),
+//                               DataColumn(label: Expanded(child: Center(child: Text('Note')))),
+//                               DataColumn(label: Expanded(child: Center(child: Text('Deposit')))),
+//                               DataColumn(label: Expanded(child: Center(child: Text('Withdraw')))),
+//                               DataColumn(label: Expanded(child: Center(child: Text('Balance')))),
+//                             ],
+//                             rows: List.generate(
+//                               allBankLedgerData.transactions.length,
+//                                   (int index) => DataRow(
+//                                 cells: <DataCell>[
+//                                   DataCell(Center(child: Text(allBankLedgerData.transactions[index].transactionDate))),
+//                                   DataCell(Center(child: Text(allBankLedgerData.transactions[index].description))),
+//                                   DataCell(Center(child: Text(allBankLedgerData.transactions[index].note))),
+//                                   DataCell(Center(child: Text(allBankLedgerData.transactions[index].deposit))),
+//                                   DataCell(Center(child: Text(allBankLedgerData.transactions[index].withdraw))),
+//                                   DataCell(Center(child: Text(allBankLedgerData.transactions[index].balance))),
+//                                 ],
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text("Total Withdraw Balance: $allWithdrawBalance",style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+//                       Text("Total Deposit Balance: $allDipositBalance",style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+//                     ],
+//                   ),
+//                 )
+//               ],
+//             ),
+//           )

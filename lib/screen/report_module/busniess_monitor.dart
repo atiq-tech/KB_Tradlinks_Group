@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:kbtradlink/custom/custom_appbar.dart';
 import 'package:kbtradlink/provider/business_monitor_provider.dart';
+import 'package:kbtradlink/utils/all_textstyle.dart';
 import 'package:kbtradlink/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -16,10 +17,9 @@ class BusinessMonitor extends StatefulWidget {
 class _BusinessMonitorState extends State<BusinessMonitor> {
 
   String? firstPickedDate;
-  var backEndFirstDate;
-  var backEndSecondDate;
+  String? backEndFirstDate;
+  String? backEndSecondDate;
   var toDay = DateTime.now();
-
   void _firstSelectedDate() async {
     final selectedDate = await showDatePicker(
         context: context,
@@ -42,7 +42,6 @@ class _BusinessMonitorState extends State<BusinessMonitor> {
   }
 
   String? secondPickedDate;
-
   void _secondSelectedDate() async {
     final selectedDate = await showDatePicker(
         context: context,
@@ -71,7 +70,6 @@ class _BusinessMonitorState extends State<BusinessMonitor> {
     backEndFirstDate = Utils.formatBackEndDate(DateTime.now());
     secondPickedDate = Utils.formatFrontEndDate(DateTime.now());
     backEndSecondDate = Utils.formatBackEndDate(DateTime.now());
-
     super.initState();
   }
   
@@ -81,191 +79,128 @@ class _BusinessMonitorState extends State<BusinessMonitor> {
     return Scaffold(
       appBar: const CustomAppBar(title: "Business Monitor"),
       body: Container(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(6.0),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: Colors.teal[100],
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 7, 125, 180),
-                      width: 1.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.6),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3), 
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        const Expanded(
-                          flex: 4,
-                          child: Text(
-                            "Date From :",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 126, 125, 125)),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 11,
-                          child: Container(
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: const Color.fromARGB(255, 7, 125, 180),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: GestureDetector(
-                              onTap: (() {
-                                _firstSelectedDate();
-                              }),
-                              child: TextFormField(
-                                enabled: false,
-                                decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.only(
-                                    top: 2,
-                                    left: 5,
-                                  ),
-                                  suffixIcon: const Padding(
-                                    padding: EdgeInsets.only(left: 20.0),
-                                    child: Icon(
-                                      Icons.calendar_month,
-                                      color: Colors.black87,
-                                      size: 16,
+              Card(
+                elevation: 5,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: Colors.teal[100],
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(color: Colors.teal,width: 1.0),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(flex: 4,child: Text("Date From",style: AllTextStyle.dateFormatStyle)),
+                          Expanded(flex: 1,child: Text(":",style: AllTextStyle.dateFormatStyle)),
+                          Expanded(
+                            flex: 11,
+                            child: Container(
+                              height: 30,
+                              decoration: ContDecoration.contDecoration,
+                              child: GestureDetector(
+                                onTap: (() {
+                                  _firstSelectedDate();
+                                }),
+                                child: TextFormField(
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.only(top: 2,left: 5),
+                                    suffixIcon: const Padding(
+                                      padding: EdgeInsets.only(left: 20.0),
+                                      child: Icon(Icons.calendar_month,color: Colors.black87,size: 16),
                                     ),
+                                    border: const OutlineInputBorder(borderSide: BorderSide.none),
+                                    hintText: firstPickedDate,
+                                    hintStyle: const TextStyle(fontSize: 13, color: Colors.black87),
                                   ),
-                                  border: const OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  hintText: firstPickedDate,
-                                  hintStyle: const TextStyle(
-                                      fontSize: 13, color: Colors.black87),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return null;
+                                    }
                                     return null;
-                                  }
-                                  return null;
-                                },
+                                  },
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4.0),
-                    Row(
-                      children: [
-                        const Expanded(
-                          flex: 4,
-                          child: Text(
-                            "Date To     :",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 126, 125, 125)),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 11,
-                          child: Container(
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: const Color.fromARGB(255, 7, 125, 180),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: GestureDetector(
-                              onTap: (() {
-                                _secondSelectedDate();
-                              }),
-                              child: TextFormField(
-                                enabled: false,
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                  const EdgeInsets.only(top: 2, left: 5),
-                                  suffixIcon: const Padding(
-                                    padding: EdgeInsets.only(left: 20.0),
-                                    child: Icon(
-                                      Icons.calendar_month,
-                                      color: Colors.black87,
-                                      size: 16,
+                        ],
+                      ),
+                      const SizedBox(height: 4.0),
+                      Row(
+                        children: [
+                          Expanded(flex: 4,child: Text("Date To",style: AllTextStyle.dateFormatStyle)),
+                          Expanded(flex: 1,child: Text(":",style: AllTextStyle.dateFormatStyle)),
+                          Expanded(
+                            flex: 11,
+                            child: Container(
+                              height: 30,
+                              decoration: ContDecoration.contDecoration,
+                              child: GestureDetector(
+                                onTap: (() {
+                                  _secondSelectedDate();
+                                }),
+                                child: TextFormField(
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                    contentPadding:const EdgeInsets.only(top: 2, left: 5),
+                                    suffixIcon: const Padding(
+                                      padding: EdgeInsets.only(left: 20.0),
+                                      child: Icon(Icons.calendar_month,color: Colors.black87,size: 16),
                                     ),
+                                    border: const OutlineInputBorder(borderSide: BorderSide.none),
+                                    hintText: secondPickedDate,
+                                    hintStyle: const TextStyle(fontSize: 13, color: Colors.black87),
                                   ),
-                                  border: const OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  hintText: secondPickedDate,
-                                  hintStyle: const TextStyle(
-                                      fontSize: 13, color: Colors.black87),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return null;
+                                    }
                                     return null;
-                                  }
-                                  return null;
-                                },
+                                  },
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 5.0),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: InkWell(
-                        onTap: () async {
-                          setState(() {
-                            BusinessMonitorProvider.isLoading = true;
-                            Provider.of<BusinessMonitorProvider>(context, listen: false).getBusinessMonitor(backEndFirstDate, backEndSecondDate);
-                          });
-                        },
-                        child: Container(
-                          height: 35.0,
-                          width: 75.0,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.teal, width: 2.0),
-                            color: Colors.teal[300],
-                            borderRadius: BorderRadius.circular(6.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.6),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: const Offset(
-                                    0, 3), // changes the position of the shadow
+                        ],
+                      ),
+                      const SizedBox(height: 2.0),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: InkWell(
+                          onTap: () async {
+                            setState(() {
+                              BusinessMonitorProvider.isLoading = true;
+                              Provider.of<BusinessMonitorProvider>(context, listen: false).getBusinessMonitor("$backEndFirstDate", "$backEndSecondDate");
+                            });
+                          },
+                          child: Card(
+                            elevation: 5,
+                            child: Container(
+                              height: 32.0,
+                              width: 75.0,
+                              decoration: BoxDecoration(
+                                color: Colors.teal[300],
+                                borderRadius: BorderRadius.circular(6.0),
                               ),
-                            ],
+                              child: Center(child: Text("Show",style: AllTextStyle.saveButtonTextStyle)),
+                            ),
                           ),
-                          child: const Center(
-                              child: Text(
-                                "Show",
-                                style: TextStyle(
-                                    letterSpacing: 1.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              )),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               LayoutBuilder(builder:  (context, constraints) {
                 if(BusinessMonitorProvider.isLoading){
                   return const CircularProgressIndicator();
@@ -286,29 +221,21 @@ class _BusinessMonitorState extends State<BusinessMonitor> {
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Container(
+                        child: Card(
                           color: Colors.tealAccent,
-                          padding: const EdgeInsets.all(5),
-                          child: const Text(
-                            "Top Sold Products",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black
-                            ),
+                          shape: BeveledRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsetsGeometry.symmetric(horizontal: 10,vertical: 2),
+                            child: Text("Top Sold Products",style: AllTextStyle.blackStyle),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(height: 5),
                       PieChart(
-                        // dataMap: Map.fromIterable(
-                        //   businessMonitorData!.topProducts.map((e) => e.toMap().keys),
-                        //   value: businessMonitorData!.topProducts.map((e) => e.toMap().values.map((e) => (double.tryParse(e.toString()) ?? 0.0)),),
-                        //   // value: businessMonitorData!.toMap().values.map((e) => e.toString()),
-                        // ),
                         dataMap: businessMonitorData.topProducts.fold<Map<String, double>>({},
                                 (map, model) => map..[model.productName] = double.parse(model.soldQuantity)),
-
                         animationDuration: const Duration(milliseconds: 800),
                         chartLegendSpacing: 20,
                         chartRadius: 150,
@@ -354,33 +281,24 @@ class _BusinessMonitorState extends State<BusinessMonitor> {
                             fontSize: 12
                           ),
                         ),
-                        // gradientList: ---To add gradient colors---
-                        // emptyColorGradient: ---Empty Color gradient---
                       ),
 
-                      const SizedBox(height: 20,),
+                      const SizedBox(height: 10),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Container(
+                        child: Card(
                           color: Colors.tealAccent,
-                          padding: const EdgeInsets.all(5),
-                          child: const Text(
-                            "Top Customer",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black
-                            ),
+                          shape: BeveledRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsetsGeometry.symmetric(horizontal: 10,vertical: 2),
+                            child: Text("Top Customer",style: AllTextStyle.blackStyle),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(height: 10),
                       PieChart(
-                        // dataMap: Map.fromIterable(
-                        //   businessMonitorData!.topProducts.map((e) => e.toMap().keys),
-                        //   value: businessMonitorData!.topProducts.map((e) => e.toMap().values.map((e) => (double.tryParse(e.toString()) ?? 0.0)),),
-                        //   // value: businessMonitorData!.toMap().values.map((e) => e.toString()),
-                        // ),
                         dataMap: businessMonitorData.topCustomers.fold<Map<String, double>>({},
                                 (map, model) => map..[model.customerName] = double.parse(model.amount)),
 
@@ -429,33 +347,24 @@ class _BusinessMonitorState extends State<BusinessMonitor> {
                               fontSize: 12
                           ),
                         ),
-                        // gradientList: ---To add gradient colors---
-                        // emptyColorGradient: ---Empty Color gradient---
                       ),
 
-                      const SizedBox(height: 20,),
+                      const SizedBox(height: 10),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Container(
+                        child: Card(
                           color: Colors.tealAccent,
-                          padding: const EdgeInsets.all(5),
-                          child: const Text(
-                            "Top Paid Customer",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black
-                            ),
+                          shape: BeveledRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsetsGeometry.symmetric(horizontal: 10,vertical: 2),
+                            child: Text("Top Paid Customer",style: AllTextStyle.blackStyle),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(height: 10),
                       PieChart(
-                        // dataMap: Map.fromIterable(
-                        //   businessMonitorData!.topProducts.map((e) => e.toMap().keys),
-                        //   value: businessMonitorData!.topProducts.map((e) => e.toMap().values.map((e) => (double.tryParse(e.toString()) ?? 0.0)),),
-                        //   // value: businessMonitorData!.toMap().values.map((e) => e.toString()),
-                        // ),
                         dataMap: businessMonitorData.topPaidCustomer.fold<Map<String, double>>({},
                                 (map, model) => map..[model.customerName] = double.parse(model.total)),
 
@@ -497,8 +406,6 @@ class _BusinessMonitorState extends State<BusinessMonitor> {
                           decimalPlaces: 1,
                           chartValueStyle: TextStyle(color: Colors.white,fontSize: 12),
                         ),
-                        // gradientList: ---To add gradient colors---
-                        // emptyColorGradient: ---Empty Color gradient---
                       ),
                     ],
                   );

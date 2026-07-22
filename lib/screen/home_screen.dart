@@ -1054,14 +1054,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
-                  Container(
-
-                    child:  Text(
-                      " Administator Module : ",
-                      style: getTextstyle(),
-                    ),
-                  ),
+                  Container(child:  Text(" Administration Module : ",style: getTextstyle())),
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     height: 130,

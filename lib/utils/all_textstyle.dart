@@ -97,6 +97,11 @@ class AllTextStyle {
 
   ///dropDownlist Style
   static  TextStyle textValueStyle = const TextStyle(fontSize: 12.5, color: Color.fromARGB(255, 126, 125, 125));
+ ///dropDownlist Style
+  static  TextStyle blackStyle = const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: Colors.black);
 }
 
 /// decoration
